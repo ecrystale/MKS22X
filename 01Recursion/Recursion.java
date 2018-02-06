@@ -15,13 +15,13 @@ public class Recursion{
 	if (n<0){
 	    throw new IllegalArgumentException();
 	}
-	if (n==0){
-	    return 0;
+	return help(n,0,1,0);
+    }
+    public static int help(int n, int count, int place, int total){
+	if (n==count){
+	    return total;
 	}
-	if (n==1){
-	    return 1;
-	}
-	return fib(n-1)+fib(n-2);
+	return help(n,count+1,place+total,place);
     }
 
 
