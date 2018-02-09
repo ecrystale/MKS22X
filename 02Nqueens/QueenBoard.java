@@ -1,13 +1,20 @@
 public class QueenBoard{
-    private int[][]board;
+    private static int[][]board;
 
-    public QueenBoard(int size){}
+    public static void QueenBoard(int size){
+	board=new int[size][size];
+	for (int i=0;i<board.length;i++){
+	    for (int j=0;j<board[i].length;j++){
+		board[i][j]=0;
+	    }
+	}
+    }
 
-    private boolean addQueen(int r, int c){
+    private static boolean addQueen(int r, int c){
 	if (board[r][c]==0){
 	    board[r][c]=-1;
 	    for(int i=0;i<board.length;i++){
-		for(int j=0;j<board.length;j++){
+		for(int j=0;j<board[i].length;j++){
 		    if(i==r || j==c || i-r==j-c){
 			board[i][j]=board[i][j]+1;
 		    }
@@ -18,11 +25,11 @@ public class QueenBoard{
 	return false;
     }
     
-    private boolean removeQueen(int r, int c){
+    private static boolean removeQueen(int r, int c){
 	if (board[r][c]==-1){
 	    board[r][c]=0;
 	    for(int i=0;i<board.length;i++){
-		for(int j=0;j<board.length;j++){
+		for(int j=0;j<board[i].length;j++){
 		    if(i==r || j==c || i-r==j-c){
 			board[i][j]=board[i][j]-1;
 		    }
@@ -43,7 +50,7 @@ public class QueenBoard{
      *_ _ Q _
      * etc.
      */
-	public String toString(){}
+    //	public String toString(){}
 
   
     /**
@@ -51,13 +58,22 @@ public class QueenBoard{
      *        true when the board is solveable, and leaves the board in a solved state
      *@throws IllegalStateException when the board starts with any non-zero value
      */
-    public boolean solve(){}
+    //    public boolean solve(){}
   
     /**
      *@return the number of solutions found, and leaves the board filled with only 0's
      *@throws IllegalStateException when the board starts with any non-zero value
      */
-    public int countSolutions(){
+    //    public int countSolutions(){    }
+    public static void main(String[] args){
+	QueenBoard(5);
+	addQueen(1,1);
+	addQueen(6,3);
+	addQueen(2,1);
+	removeQueen(3,2);
+	removeQueen(1,1);
+	
+	//System.out.println(board);
     }
 }
   
