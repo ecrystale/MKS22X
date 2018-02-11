@@ -1,7 +1,7 @@
 public class QueenBoard{
     private static int[][]board;
 
-    public static void QueenBoard(int size){
+    public QueenBoard(int size){
 	board=new int[size][size];
 	for (int i=0;i<board.length;i++){
 	    for (int j=0;j<board[i].length;j++){
@@ -15,7 +15,7 @@ public class QueenBoard{
 	    board[r][c]=-1;
 	    for(int i=0;i<board.length;i++){
 		for(int j=0;j<board[i].length;j++){
-		    if(i==r || j==c || i-r==j-c){
+		    if((i==r || j==c || i-r==j-c) && !(i==r && j==c)){
 			board[i][j]=board[i][j]+1;
 		    }
 		}
@@ -24,13 +24,14 @@ public class QueenBoard{
 	}
 	return false;
     }
+
     
     private static boolean removeQueen(int r, int c){
 	if (board[r][c]==-1){
 	    board[r][c]=0;
 	    for(int i=0;i<board.length;i++){
 		for(int j=0;j<board[i].length;j++){
-		    if(i==r || j==c || i-r==j-c){
+		    if((i==r || j==c || i-r==j-c) && !(i==r && j==c)){
 			board[i][j]=board[i][j]-1;
 		    }
 		}
@@ -50,7 +51,23 @@ public class QueenBoard{
      *_ _ Q _
      * etc.
      */
-    //	public String toString(){}
+    public String toString(){
+	String chess="";
+	for(int i=0;i<board.length;i++){
+	    for(int j=0;j<board[i].length;j++){
+		if(board[i][j]==-1){
+		    chess=chess+"Q ";
+		}
+		else{
+		    chess=chess+"_ ";
+		}
+		if(j==board[i].length-1 && i!=board.length && j!=board.length){
+		    chess=chess+"\n";
+		}
+	    }
+	}
+	return chess;
+    }
 
   
     /**
@@ -66,12 +83,19 @@ public class QueenBoard{
      */
     //    public int countSolutions(){    }
     public static void main(String[] args){
-	QueenBoard(5);
-	addQueen(1,1);
-	addQueen(6,3);
-	addQueen(2,1);
-	removeQueen(3,2);
-	removeQueen(1,1);
+	QueenBoard a=new QueenBoard(5);
+	System.out.println(a.toString());;
+	System.out.println(a.addQueen(0,0));
+	System.out.println(a.toString());
+	System.out.println(a.addQueen(4,2));
+	System.out.println(a.toString());
+	System.out.println(a.removeQueen(0,0));
+	System.out.println(a.toString());
+	System.out.println(a.removeQueen(0,0));
+	//	addQueen(6,3);
+	System.out.println(a.addQueen(2,2));
+	System.out.println(a.removeQueen(3,2));
+	System.out.println(a.removeQueen(1,1));
 	
 	//System.out.println(board);
     }
