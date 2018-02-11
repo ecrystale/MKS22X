@@ -1,7 +1,7 @@
 public class QueenBoard{
-    private static int[][]board;
-    private static int length;
-    private static int sol=0;
+    private int[][]board;
+    private int length;
+    private int sol=0;
 
     public QueenBoard(int size){
 	length=size;
@@ -9,7 +9,7 @@ public class QueenBoard{
 	reset();
     }
 
-    private static boolean addQueen(int r, int c){
+    private boolean addQueen(int r, int c){
 	if (board[r][c]==0){
 	    board[r][c]=-1;
 	    for(int i=0;i<board.length;i++){
@@ -25,7 +25,7 @@ public class QueenBoard{
     }
 
     
-    private static boolean removeQueen(int r, int c){
+    private boolean removeQueen(int r, int c){
 	if (board[r][c]==-1){
 	    board[r][c]=0;
 	    for(int i=0;i<board.length;i++){
@@ -64,7 +64,7 @@ public class QueenBoard{
      *        true when the board is solveable, and leaves the board in a solved state
      *@throws IllegalStateException when the board starts with any non-zero value
      */
-    public static boolean solve(){
+    public boolean solve(){
 	if(allZeros()==false){
 	    throw new IllegalStateException();
 	}
@@ -72,7 +72,7 @@ public class QueenBoard{
 	//return setBoard(0,0,0);
     }
   
-    public static void reset(){
+    public void reset(){
 	for (int i=0;i<board.length;i++){
 	    for (int j=0;j<board[i].length;j++){
 		board[i][j]=0;
@@ -82,7 +82,7 @@ public class QueenBoard{
     }
 
 
-    public static boolean setBoard(int row,int col, int count){
+    public boolean setBoard(int row,int col, int count){
 	if(count==board.length){
 	    sol++;
 	    return true;
@@ -90,18 +90,23 @@ public class QueenBoard{
 	if(row>=board.length){
 	    return false;
 	}
-	if(addQueen(row,col)){
-	    for(int i=0;i<board.length;i++){
-		if(setBoard(row+1,i,count+1)){
-		return true;
+	for(int r=row;r<board.length;r++){
+	    for(int i=col;i<board.length;i++){
+		if(addQueen(r,i)){
+		    if(setBoard(row,col+1,count+1)){
+			return true;
+		    }
+		    else{
+			removeQueen(r,i);
+		    }
 		}
 	    }
-	    removeQueen(row,col);
+	    // return setBoard(row+1,col,count);
 	}
-	return setBoard(row+1,col,count);
+	return false;
     }
 
-    public static boolean allZeros(){
+    public boolean allZeros(){
 	for(int i=0;i<board.length;i++){
 	    for(int j=0;j<board[i].length;j++){
 		if(board[i][j]!=0){
@@ -123,7 +128,7 @@ public class QueenBoard{
 	reset();
 	return sol;
     }
-    public static void main(String[] args){
+    /**    public static void main(String[] args){
 	QueenBoard a=new QueenBoard(6);
 	System.out.println(a.countSolutions());
 	System.out.println(a.solve());
@@ -138,6 +143,6 @@ public class QueenBoard{
 	System.out.println(a.removeQueen(1,1));
         
 	//System.out.println(board);
-    }
+	}*/
 }
   
