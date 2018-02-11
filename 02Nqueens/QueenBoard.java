@@ -6,11 +6,7 @@ public class QueenBoard{
     public QueenBoard(int size){
 	length=size;
 	board=new int[size][size];
-	for (int i=0;i<board.length;i++){
-	    for (int j=0;j<board[i].length;j++){
-		board[i][j]=0;
-	    }
-	}
+	reset();
     }
 
     private static boolean addQueen(int r, int c){
@@ -72,11 +68,21 @@ public class QueenBoard{
 	if(allZeros()==false){
 	    throw new IllegalStateException();
 	}
-	sol=0;
 	return setBoard(0,0,0);
+	//return setBoard(0,0,0);
     }
   
-    public static boolean setBoard(int row,int col,int count){
+    public static void reset(){
+	for (int i=0;i<board.length;i++){
+	    for (int j=0;j<board[i].length;j++){
+		board[i][j]=0;
+	    }
+	}
+
+    }
+
+
+    public static boolean setBoard(int row,int col, int count){
 	if(count==board.length){
 	    sol++;
 	    return true;
@@ -84,9 +90,13 @@ public class QueenBoard{
 	if(row>=board.length){
 	    return false;
 	}
-	if( addQueen(row,col)){
-	    addQueen(row,col);
-	    return ((setBoard(row,col+1,count+1)) || (removeQueen(row,col) && setBoard(row+1,col,count)));
+	if(addQueen(row,col)){
+	    for(int i=0;i<board.length;i++){
+		if(setBoard(row+1,i,count+1)){
+		return true;
+		}
+	    }
+	    removeQueen(row,col);
 	}
 	return setBoard(row+1,col,count);
     }
@@ -106,18 +116,16 @@ public class QueenBoard{
      *@throws IllegalStateException when the board starts with any non-zero value
      */
     public int countSolutions(){
-
-	board=new int[length][length];
-	for (int i=0;i<board.length;i++){
-	    for (int j=0;j<board[i].length;j++){
-		board[i][j]=0;
-	    }
+	if(!allZeros()){
+	    throw new IllegalStateException();
 	}
+	solve();
+	reset();
 	return sol;
     }
     public static void main(String[] args){
-	QueenBoard a=new QueenBoard(5);
-
+	QueenBoard a=new QueenBoard(6);
+	System.out.println(a.countSolutions());
 	System.out.println(a.solve());
 	System.out.println(a.toString());;
 	System.out.println(a.addQueen(0,0));
