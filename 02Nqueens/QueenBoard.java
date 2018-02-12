@@ -68,7 +68,7 @@ public class QueenBoard{
 	if(allZeros()==false){
 	    throw new IllegalStateException();
 	}
-	return setBoard(0,0,0);
+	return setBoard(0);
 	//return setBoard(0,0,0);
     }
   
@@ -82,8 +82,21 @@ public class QueenBoard{
     }
 
 
-    public boolean setBoard(int row,int col, int count){
-	if(count==board.length){
+    public boolean setBoard(int col){
+	if(col>=board.length){
+	    return true;
+	}
+	for(int row;row<board.length;row++){
+	    if(addQueen(row,col)){
+		if(setBoard(col+1)){
+		    return true;
+		}
+	    }
+	    removeQueen(row,col);
+	}
+	return false;
+    }
+	/**	if(count==board.length){
 	    sol++;
 	    return true;
 	}
@@ -104,7 +117,7 @@ public class QueenBoard{
 	    // return setBoard(row+1,col,count);
 	}
 	return false;
-    }
+    }*/
 
     public boolean allZeros(){
 	for(int i=0;i<board.length;i++){
