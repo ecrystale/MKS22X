@@ -14,7 +14,7 @@ public class QueenBoard{
 	    board[r][c]=-1;
 	    for(int i=0;i<board.length;i++){
 		for(int j=0;j<board[i].length;j++){
-		    if((i==r || j==c || i-r==j-c) && !(i==r && j==c)){
+		    if((i==r || j==c || i-r==j-c || r-i==j-c) && !(i==r && j==c)){
 			board[i][j]=board[i][j]+1;
 		    }
 		}
@@ -30,7 +30,7 @@ public class QueenBoard{
 	    board[r][c]=0;
 	    for(int i=0;i<board.length;i++){
 		for(int j=0;j<board[i].length;j++){
-		    if((i==r || j==c || i-r==j-c) && !(i==r && j==c)){
+		    if((i==r || j==c || i-r==j-c || r-i==j-c) && !(i==r && j==c)){
 			board[i][j]=board[i][j]-1;
 		    }
 		}
@@ -115,38 +115,52 @@ public class QueenBoard{
 	if(!allZeros()){
 	    throw new IllegalStateException();
 	}
-	helpCount(0);
+	helpCount();
 	reset();
 	return sol;
     }
 
-    public static int helpCount(int col){
+    public static int helpCount(){
 	for(int i=0;i<board.length;i++){
 	    reset();
-	    if(helphelp(i,0)){
-		sol++;
+	    if(addQueen(i,0)){
+		if(helphelp(0,1)){
+			sol++;
+		}
 	    }
 	}
 	return sol;
     }
+    
+    public static boolean helphelp(int row, int col){
+    	if(col>=board.length){
+	    return true;
+	}
+	for(int i=row;i<board.length;i++){
+	    if(addQueen(i,col)){
+		return helphelp(0,col+1);
+	    }
+	    removeQueen(i,col);
+	}
+	return false;
+    }
+    /*
     public static boolean helphelp(int row, int col){
 	if(col>=board.length){
 	    return true;
 	}
 	for(int i=row;i<board.length;i++){
 	    if(addQueen(i,col)){
-		if(helphelp(row,col+1)){
-		    return true;
-		}
+		return helphelp(0,col+1);
 	    }
 	    removeQueen(i,col);
 	}
 	return false;
-    }
+	}*/
        
     
     public static void main(String[] args){
-	QueenBoard a=new QueenBoard(3);
+	QueenBoard a=new QueenBoard(6);
 	System.out.println(a.countSolutions());
 	System.out.println(a.solve());
 	System.out.println(a.toString());
