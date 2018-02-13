@@ -124,7 +124,7 @@ public class QueenBoard{
 	for(int i=0;i<board.length;i++){
 	    reset();
 	    if(addQueen(i,0)){
-		if(helphelp(0,1)){
+		if(helphelp(1)){
 			sol++;
 		}
 	    }
@@ -132,15 +132,17 @@ public class QueenBoard{
 	return sol;
     }
     
-    public static boolean helphelp(int row, int col){
-    	if(col>=board.length){
+    public static boolean helphelp(int col){
+	if(col>=board.length){
 	    return true;
 	}
-	for(int i=row;i<board.length;i++){
-	    if(addQueen(i,col)){
-		return helphelp(0,col+1);
+	for(int row=0;row<board.length;row++){
+	    if(addQueen(row,col)){
+		if(setBoard(col+1)){
+		    return true;
+		}
 	    }
-	    removeQueen(i,col);
+	    removeQueen(row,col);
 	}
 	return false;
     }
@@ -160,7 +162,7 @@ public class QueenBoard{
        
     
     public static void main(String[] args){
-	QueenBoard a=new QueenBoard(6);
+	QueenBoard a=new QueenBoard(5);
 	System.out.println(a.countSolutions());
 	System.out.println(a.solve());
 	System.out.println(a.toString());
