@@ -120,33 +120,33 @@ public class QueenBoard{
 	return sol;
     }
 
-    public static int helpCount(){
-	for(int row=0;row<board.length;row++){
-	    if(helphelp(row,col)==true){
+    public static int helpCount(int col){
+	for(int i=0;i<board.length;i++){
+	    reset();
+	    if(helphelp(i,0)){
 		sol++;
 	    }
-	    reset();
 	}
 	return sol;
     }
-    public static boolean helphelp(int row,int col){
+    public static boolean helphelp(int row, int col){
 	if(col>=board.length){
 	    return true;
 	}
 	for(int i=row;i<board.length;i++){
 	    if(addQueen(i,col)){
-		if(helphelp(0,col+1)){
+		if(helphelp(row,col+1)){
 		    return true;
 		}
 	    }
-	    removeQueen(row,col);
+	    removeQueen(i,col);
 	}
 	return false;
     }
        
     
     public static void main(String[] args){
-	QueenBoard a=new QueenBoard(7);
+	QueenBoard a=new QueenBoard(3);
 	System.out.println(a.countSolutions());
 	System.out.println(a.solve());
 	System.out.println(a.toString());
