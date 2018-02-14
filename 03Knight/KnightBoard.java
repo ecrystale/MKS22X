@@ -50,27 +50,44 @@ public class KnightBoard{
    you get a blank board if you never called solve or 
    when there is no solution 
    
-@throws IllegalStateException when the board contains non-zero values.
-@throws IllegalArgumentException when either parameter is negative 
-or out of bounds.
-    public boolean solve(int startingRow, int startingCol){
-    }
-
-/**
-   @throws IllegalStateException when the board contains non-zero values. 
+   @throws IllegalStateException when the board contains non-zero values.
    @throws IllegalArgumentException when either parameter is negative 
-   or out of bounds.
-
-    public int countSolutions(int startingRow, int startingCol){
-
+   or out of bounds.*/
+    private boolean noZero(){
+	for(int row=0;int row<board.length;row++){
+	    for(int col=0;int col<board[row].length;col++){
+		if(board[row][col]!=0){
+		    return false;
+		}
+	    }
+	}
+	return true;
     }
+    
+    public boolean solve(int startingRow, int startingCol){
+	if((noZero()) || (startingRow!=0 || startingCol!=0)){
+	    throw new IllegalStateException();
+	}
+	for(int i=0;i<board.length;i++){
+	    return solveH(i,0,0);
+	}
+    }
+
+    /**
+       @throws IllegalStateException when the board contains non-zero values. 
+       @throws IllegalArgumentException when either parameter is negative 
+       or out of bounds.
+
+       public int countSolutions(int startingRow, int startingCol){
+
+       }
 	
-    //Suggestion:
-    private boolean solveH(int row ,int col, int level) {
+       //Suggestion:
+       private boolean solveH(int row ,int col, int level) {
 
-    }
+       }
 
-    // level is the # of the knight*/
+       // level is the # of the knight*/
     public static void main(String[] args){
 	KnightBoard a= new KnightBoard(5,5);
 	System.out.println(a.toString());
