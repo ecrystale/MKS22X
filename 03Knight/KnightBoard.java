@@ -1,7 +1,7 @@
 public class KnightBoard{
     private static int[][] board;
     private static boolean called=false;
-    //@throws IllegalArgumentException when either parameter is negative.
+    
     public KnightBoard(int startingRows,int startingCols){
 	if(startingRows<0 || startingCols<0){
 	    throw new IllegalArgumentException();
@@ -32,7 +32,7 @@ public class KnightBoard{
 	}
 	for (int row=0;row<board.length;row++){
 	    for(int cols=0;cols<board[row].length;cols++){
-		if(board[row][cols]%10==0){
+		if(board[row][cols]/10==0){
 		    news=news+" "+board[row][cols]+" ";
 		}
 		else{
@@ -44,18 +44,11 @@ public class KnightBoard{
 	    }
 	}
 	return news;
-    } 
-/**see format for toString below
-   blank boards display 0's as underscores 
-   you get a blank board if you never called solve or 
-   when there is no solution 
-   
-   @throws IllegalStateException when the board contains non-zero values.
-   @throws IllegalArgumentException when either parameter is negative 
-   or out of bounds.*/
-    private boolean noZero(){
-	for(int row=0;int row<board.length;row++){
-	    for(int col=0;int col<board[row].length;col++){
+    }
+    
+    private static boolean noZero(){
+	for(int row=0;row<board.length;row++){
+	    for(int col=0;col<board[row].length;col++){
 		if(board[row][col]!=0){
 		    return false;
 		}
@@ -64,33 +57,57 @@ public class KnightBoard{
 	return true;
     }
     
-    public boolean solve(int startingRow, int startingCol){
-	if((noZero()) || (startingRow!=0 || startingCol!=0)){
-	    throw new IllegalStateException();
-	}
-	for(int i=0;i<board.length;i++){
-	    return solveH(i,0,0);
-	}
+    public static boolean solve(int startingRow, int startingCol){
+	if(!noZero() || !inbound(startingRow,startingCol)){
+		throw new IllegalStateException();
+	    }
+	called=true;
+	return HelpSolve(startingRow,startingCol,1,0);
     }
 
-    /**
-       @throws IllegalStateException when the board contains non-zero values. 
-       @throws IllegalArgumentException when either parameter is negative 
-       or out of bounds.
+	public static boolean inbound(int row, int col){
+	    if(row<0 || col<0 || row>=board.length || col>=board[0].length){
+		return false;
+	    }
+	    return true;
+	}
+    
+	public static boolean HelpSolve(int startingRow,int startingCol, int step, int count){
+	    if(!inbound(startingRow,startingCol)){
+		return false;
+	    }
+	    if(count==board[0].length*board.length){
+		return true;
+	    }
+	    for(int row=startingRow;row<board.length;row++){
+		for(int col=startingCol;col<board[row].length;col++){
+		    if(board[row][col]==0){
+			board[row][col]=step;
+			return HelpSolve(row+2, col+1, step+3, count+1) || HelpSolve(row+1, col+2, step+3, count+1) || HelpSolve(row-2, col+1, step+3, count+1) || HelpSolve(row+2, col-1, step+3, count+1) || HelpSolve(row-2, col-1, step+3, count+1);
+		    }
+		}
+	    }
+	    return false;
+	}
+	/**
+	   @throws IllegalStateException when the board contains non-zero values. 
+	   @throws IllegalArgumentException when either parameter is negative 
+	   or out of bounds.
 
-       public int countSolutions(int startingRow, int startingCol){
+	   public int countSolutions(int startingRow, int startingCol){
 
-       }
+	   }
 	
-       //Suggestion:
-       private boolean solveH(int row ,int col, int level) {
+	   //Suggestion:
+	   private boolean solveH(int row ,int col, int level) {
 
-       }
+	   }
 
-       // level is the # of the knight*/
-    public static void main(String[] args){
-	KnightBoard a= new KnightBoard(5,5);
-	System.out.println(a.toString());
-
+	   // level is the # of the knight*/
+	public static void main(String[] args){
+	    KnightBoard a= new KnightBoard(5,5);
+	    System.out.println(a.toString());
+	    System.out.println(a.solve(0,0));
+	    System.out.println(a.toString());
+	}
     }
-}
