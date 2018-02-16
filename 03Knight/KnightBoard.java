@@ -72,20 +72,19 @@ public class KnightBoard{
 	    return true;
 	}
     
-	public static boolean HelpSolve(int startingRow,int startingCol, int step, int count){
-	    if(!inbound(startingRow,startingCol)){
+	public static boolean HelpSolve(int row,int col, int step, int count){
+	    if(!inbound(row,col)){
 		return false;
 	    }
 	    if(count==board[0].length*board.length){
 		return true;
 	    }
-	    for(int row=startingRow;row<board.length;row++){
-		for(int col=startingCol;col<board[row].length;col++){
-		    if(board[row][col]==0){
-			board[row][col]=step;
-			return HelpSolve(row+2, col+1, step+3, count+1) || HelpSolve(row+1, col+2, step+3, count+1) || HelpSolve(row-2, col+1, step+3, count+1) || HelpSolve(row+2, col-1, step+3, count+1) || HelpSolve(row-2, col-1, step+3, count+1);
-		    }
+	    if(board[row][col]==0){
+		board[row][col]=step;
+		if(HelpSolve(row+2, col+1, step+3, count+1) || HelpSolve(row+1, col+2, step+3, count+1) || HelpSolve(row-2, col+1, step+3, count+1) || HelpSolve(row+2, col-1, step+3, count+1) || HelpSolve(row-2, col-1, step+3, count+1) || HelpSolve(row-1, col+2, step+3, count+1) || HelpSolve(row+1, col-2, step+3, count+1) || HelpSolve(row-1, col-2, step+3, count+1)){
+		return true;
 		}
+		board[row][col]=0;
 	    }
 	    return false;
 	}
