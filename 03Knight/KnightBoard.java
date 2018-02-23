@@ -136,28 +136,28 @@ public class KnightBoard{
 	}
 	if(board[row][col]==0){
 	    board[row][col]=step;
-	    if(HelpSolve(row+2, col+1, step+3, count+1)){
+	    if(solveH(row+2, col+1, step+3, count+1)!=0){
 		solution++;
 	    } 
-	    if(HelpSolve(row+1, col+2, step+3, count+1)){
+	    if(solveH(row+1, col+2, step+3, count+1)!=0){
 		solution++;
 	    }
-	    if(HelpSolve(row-2, col+1, step+3, count+1)){
+	    if(solveH(row-2, col+1, step+3, count+1)!=0){
 		solution++;
 	    }
-	    if(HelpSolve(row+2, col-1, step+3, count+1)){
+	    if(solveH(row+2, col-1, step+3, count+1)!=0){
 		solution++;
 	    } 
-	    if(HelpSolve(row-2, col-1, step+3, count+1)){
+	    if(solveH(row-2, col-1, step+3, count+1)!=0){
 		solution++;
 	    } 
-	    if(HelpSolve(row-1, col+2, step+3, count+1)){
+	    if(solveH(row-1, col+2, step+3, count+1)!=0){
 		solution++;
 	    } 
-	    if(HelpSolve(row+1, col-2, step+3, count+1)){
+	    if(solveH(row+1, col-2, step+3, count+1)!=0){
 		solution++;
 	    } 
-	    if(HelpSolve(row-1, col-2, step+3, count+1)){
+	    if(solveH(row-1, col-2, step+3, count+1)!=0){
 		solution++;
 	    }
 	    board[row][col]=0;
