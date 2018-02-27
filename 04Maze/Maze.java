@@ -15,12 +15,38 @@ public class Maze{
 
       2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
 
-      3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
+      3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
+      throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename){
         //COMPLETE CONSTRUCTOR
+	if(ReadFile(filename)==false){
+	    throw new FileNotFoundException();
+	}
+	if(checker()==false){
+	    throw new IllegalStateException();
+	}
     }
-    
+
+
+    public boolean checker(){
+	int s=0;
+	int e=0;
+	for(int i=0;i<maze.length;i++){
+	    for(int j=0;j<maze[0].length;j++){
+		if(maze[i][j]=='S'){
+		    s++;
+		}
+		if(maze[i][j]=='E'){
+		    e++;
+		}
+	    }
+	}
+	if(s!=1 || e!=1){
+	    return false;
+	}
+	return true;
+    }
     private void wait(int millis){
 	try {
 	    Thread.sleep(millis);
@@ -50,6 +76,7 @@ public class Maze{
 
 	//and start solving at the location of the s.
 	//return solve(???,???);
+	return 1;
     }
 
     /*
@@ -79,4 +106,39 @@ public class Maze{
         return -1; //so it compiles
     }
 
+    /**
+       for(int i=0;i<arry.length;i++){
+       String out="";	   
+       for(int j=0;j<arry[0].length;j++){
+       out+=arry[i][j];
+	    }
+	    System.out.println(out);
+	    }
+    */
+    public void ReadFile(String files) throws FileNotFoundException {
+        //instead of a try/catch, you can throw the FileNotFoundException.
+        File text = new File(files);// can be a path like: "/full/path/to/file.txt"
+	Scanner inf = new Scanner(text);
+	int row=0;
+	int col=0;
+        while(inf.hasNextLine()){
+            String line = inf.nextLine();
+	    //            System.out.println(line);//hopefully you can do other things with the line
+	    col=line.length();
+	    row++;
+        }
+	
+        Scanner inf2 = new Scanner(text);
+	//	String line = inf2.nextLine();
+	maze= new char[row][col];
+	row=0;
+        while(inf2.hasNextLine()){
+            String line = inf2.nextLine();
+	    for(int i=0;i<col;i++){
+		maze[row][i]=line.charAt(i);
+	    }
+	    row++;
+	    // System.out.println(line);//hopefully you can do other things with the line
+        }
+    }
 }
