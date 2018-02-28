@@ -116,16 +116,15 @@ public class KnightBoard{
 	if(startingRow<0 || startingCol<0){
 	    throw new IllegalArgumentException();
 	}
-	int sum=0;
-	for(int row=startingRow;row<board.length;row++){
-	    for(int cols=startingCol;cols<board[row].length;cols++){
-		sum+=solveH(row,cols,1,0);
-		clearboard();
-	    }
-	}
-	return sum;
+        return solveH(startingRow,startingCol,1,0);
     }
-    
+
+    private static void remove(int row,int col){
+	if(inbound(row,col)){
+	    board[row][col]=0;
+	}
+    }
+
     private static int solveH(int row ,int col, int step,int count) {
 	int solution=0;
 	if(!inbound(row,col)){
@@ -134,34 +133,54 @@ public class KnightBoard{
 	if(count==board[0].length*board.length){
 	    return 1;
 	}
+	if(board[row][col]!=0){
+	    return 0;
+	}
 	if(board[row][col]==0){
 	    board[row][col]=step;
-	    if(solveH(row+2, col+1, step+3, count+1)!=0){
-		solution++;
+	    int a=solveH(row+2, col+1, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//remove(row+2,col+1);
 	    } 
-	    if(solveH(row+1, col+2, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row+1, col+2, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//	remove(row+1,col+2);
 	    }
-	    if(solveH(row-2, col+1, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row-2, col+1, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//	remove(row-2,col+1);
 	    }
-	    if(solveH(row+2, col-1, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row+2, col-1, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//	remove(row+2,col-1);
 	    } 
-	    if(solveH(row-2, col-1, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row-2, col-1, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//	remove(row-2,col-1);
 	    } 
-	    if(solveH(row-1, col+2, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row-1, col+2, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//remove(row-1,col+2);
 	    } 
-	    if(solveH(row+1, col-2, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row+1, col-2, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+		//remove(row+1,col-2);
 	    } 
-	    if(solveH(row-1, col-2, step+3, count+1)!=0){
-		solution++;
+	    a=solveH(row-1, col-2, step+3, count+1);
+	    if(a>=1){
+		solution+=a;
+	        //remove(row-1,col-2);
 	    }
-	    board[row][col]=0;
+	    remove(row,col);
 	}
+	//clearboard();
 	return solution;
     }
     
@@ -251,15 +270,16 @@ public class KnightBoard{
 		System.out.println(abc.solve(i,j)); //prints alternating lines of true/false starting with true
 	    }
 	}
-	KnightBoard c = new KnightBoard(5,5);
 
+
+	KnightBoard c = new KnightBoard(5,5);
+	
 	int totalSol = 0;
 	for (int i = 0; i < 5; i++){
 	    for (int j = 0; j < 5; j++){
 		totalSol += c.countSolutions(i,j);
 	    }
 	}
-
 	System.out.println(totalSol); //prints 1728
 
 	KnightBoard d = new KnightBoard(5,5);
