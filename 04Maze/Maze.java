@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
+    //private boolean real;
     private char[][]maze;
     private boolean animate;//false by default
 
@@ -18,11 +19,9 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
       throw a FileNotFoundException or IllegalStateException
     */
-    public Maze(String filename){
+    public Maze(String filename) throws FileNotFoundException {
         //COMPLETE CONSTRUCTOR
-	if(ReadFile(filename)==false){
-	    throw new FileNotFoundException();
-	}
+	ReadFile(filename);
 	if(checker()==false){
 	    throw new IllegalStateException();
 	}
@@ -42,10 +41,7 @@ public class Maze{
 		}
 	    }
 	}
-	if(s!=1 || e!=1){
-	    return false;
-	}
-	return true;
+	return s==1 && e==1;
     }
     private void wait(int millis){
 	try {
