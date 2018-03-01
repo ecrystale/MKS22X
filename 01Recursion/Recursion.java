@@ -30,7 +30,10 @@ public class Recursion{
 	if (n<0){
 	    throw new IllegalArgumentException();
 	}
-	return guess(n,1);
+       	if(n==0){
+	    return 0;
+	}
+	return guess(n,n/2);
     }
 
     public double guess(double n, double g){
