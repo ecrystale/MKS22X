@@ -21,9 +21,13 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
       throw a FileNotFoundException or IllegalStateException
     */
-    public Maze(String filename) throws FileNotFoundException {
+    public Maze(String filename){
         //COMPLETE CONSTRUCTOR
-	ReadFile(filename);
+	try{
+	    ReadFile(filename);
+	}catch(FileNotFoundException c){
+	    throw new FileNotFoundException();
+	}
 	/*	if(file==false){
 	    throw new FileNotFoundException();
 	    }*/
@@ -121,7 +125,7 @@ public class Maze{
 	    }
     */
     public void ReadFile(String files) throws FileNotFoundException {
-	file=false;
+	try{file=false;
 	//instead of a try/catch, you can throw the FileNotFoundException.
 	File text = new File(files);// can be a path like: "/full/path/to/file.txt"
 	Scanner inf = new Scanner(text);
@@ -147,5 +151,7 @@ public class Maze{
 	    // System.out.println(line);//hopefully you can do other things with the line
         }
 	file=true;
+	}
+	catch(){}
     }
 }
