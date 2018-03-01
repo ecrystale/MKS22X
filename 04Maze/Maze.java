@@ -3,6 +3,8 @@ import java.io.*;
 public class Maze{
 
     //private boolean real;
+    private boolean file;
+    private boolean check;
     private char[][]maze;
     private boolean animate;//false by default
 
@@ -22,13 +24,18 @@ public class Maze{
     public Maze(String filename) throws FileNotFoundException {
         //COMPLETE CONSTRUCTOR
 	ReadFile(filename);
-	if(checker()==false){
+	/*	if(file==false){
+	    throw new FileNotFoundException();
+	    }*/
+	checker();
+	/*if(checker()==false){
 	    throw new IllegalStateException();
-	}
+	    }*/
     }
 
 
-    public boolean checker(){
+    public void checker() throws IllegalStateException{
+	check=false;
 	int s=0;
 	int e=0;
 	for(int i=0;i<maze.length;i++){
@@ -41,7 +48,9 @@ public class Maze{
 		}
 	    }
 	}
-	return s==1 && e==1;
+	if(s==1 && e==1){
+	    check=true;
+	}
     }
     private void wait(int millis){
 	try {
@@ -112,8 +121,9 @@ public class Maze{
 	    }
     */
     public void ReadFile(String files) throws FileNotFoundException {
-        //instead of a try/catch, you can throw the FileNotFoundException.
-        File text = new File(files);// can be a path like: "/full/path/to/file.txt"
+	file=false;
+	//instead of a try/catch, you can throw the FileNotFoundException.
+	File text = new File(files);// can be a path like: "/full/path/to/file.txt"
 	Scanner inf = new Scanner(text);
 	int row=0;
 	int col=0;
@@ -136,5 +146,6 @@ public class Maze{
 	    row++;
 	    // System.out.println(line);//hopefully you can do other things with the line
         }
+	file=true;
     }
 }
