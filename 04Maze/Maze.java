@@ -5,7 +5,7 @@ public class Maze{
     //private boolean real;
     private boolean file;
     private boolean check;
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -26,12 +26,15 @@ public class Maze{
 	try{
 	    ReadFile(filename);
 	}catch(FileNotFoundException c){
-	    throw new FileNotFoundException();
+	    System.out.println("error");// throw new FileNotFoundException("no");
 	}
 	/*	if(file==false){
 	    throw new FileNotFoundException();
 	    }*/
-	checker();
+	try{checker();
+	}catch(IllegalStateException x){
+	    System.out.println("not a maze");
+	}
 	/*if(checker()==false){
 	    throw new IllegalStateException();
 	    }*/
@@ -39,21 +42,24 @@ public class Maze{
 
 
     public void checker() throws IllegalStateException{
-	check=false;
-	int s=0;
-	int e=0;
-	for(int i=0;i<maze.length;i++){
-	    for(int j=0;j<maze[0].length;j++){
-		if(maze[i][j]=='S'){
-		    s++;
-		}
-		if(maze[i][j]=='E'){
-		    e++;
+	try{check=false;
+	    int s=0;
+	    int e=0;
+	    for(int i=0;i<maze.length;i++){
+		for(int j=0;j<maze[0].length;j++){
+		    if(maze[i][j]=='S'){
+			s++;
+		    }
+		    if(maze[i][j]=='E'){
+			e++;
+		    }
 		}
 	    }
-	}
-	if(s==1 && e==1){
-	    check=true;
+	    if(s==1 && e==1){
+		check=true;
+	    }
+	}catch(IllegalStateException x){
+	    //System.out.println("not a maze");
 	}
     }
     private void wait(int millis){
@@ -103,7 +109,16 @@ public class Maze{
       All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col){ //you can add more parameters since this is private
-
+	int solved=0;
+	for (int i=row;i<maze.length;i++){
+	    for(int j=col;j<maze[0].length;j++){
+		if (able(i,j)){
+		    if(solve(i+1,j)>0){
+			return solve+=solve(i+1,j);
+		    }
+		}
+	    }
+	}
         //automatic animation! You are welcome.
         if(animate){
             clearTerminal();
@@ -124,36 +139,37 @@ public class Maze{
 	    System.out.println(out);
 	    }
     */
-    public void ReadFile(String files) throws FileNotFoundException {
-	try{file=false;
-	//instead of a try/catch, you can throw the FileNotFoundException.
-	File text = new File(files);// can be a path like: "/full/path/to/file.txt"
-	Scanner inf = new Scanner(text);
-	int row=0;
-	int col=0;
-        while(inf.hasNextLine()){
-            String line = inf.nextLine();
-	    //            System.out.println(line);//hopefully you can do other things with the line
-	    col=line.length();
-	    row++;
-        }
-	
-        Scanner inf2 = new Scanner(text);
-	//	String line = inf2.nextLine();
-	maze= new char[row][col];
-	row=0;
-        while(inf2.hasNextLine()){
-            String line = inf2.nextLine();
-	    for(int i=0;i<col;i++){
-		maze[row][i]=line.charAt(i);
+    public void ReadFile(String files) throws FileNotFoundException{
+	try{
+	    file=false;
+	    //instead of a try/catch, you can throw the FileNotFoundException.
+	    File text = new File(files);// can be a path like: "/full/path/to/file.txt"
+	    Scanner inf = new Scanner(text);
+	    int row=0;
+	    int col=0;
+	    while(inf.hasNextLine()){
+		String line = inf.nextLine();
+		System.out.println(line);//hopefully you can do other things with the line
+		col=line.length();
+		row++;
 	    }
-	    row++;
-	    // System.out.println(line);//hopefully you can do other things with the line
-        }
-	file=true;
+	    
+	    Scanner inf2 = new Scanner(text);
+	    //	String line = inf2.nextLine();
+	    maze= new char[row][col];
+	    row=0;
+	    while(inf2.hasNextLine()){
+		String line = inf2.nextLine();
+		for(int i=0;i<col;i++){
+		    maze[row][i]=line.charAt(i);
+		}
+		row++;
+		// System.out.println(line);//hopefully you can do other things with the line
+	    }
+	    file=true;
 	}
-	catch (FileNotFoundException e) {
-	    throw new FileNotFoundException();
+	catch(FileNotFoundException c){
+	    // System.out.println("error");
 	}
     }
 }
