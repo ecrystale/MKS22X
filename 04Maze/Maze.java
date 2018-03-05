@@ -3,10 +3,10 @@ import java.io.*;
 public class Maze{
 
     //private boolean real;
-    private boolean file;
-    private boolean check;
-    private char[][] maze;
-    private boolean animate;//false by default
+    private static boolean file;
+    private static boolean check;
+    private static char[][] maze;
+    private static boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -23,46 +23,60 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
-	try{
-	    ReadFile(filename);
-	}catch(FileNotFoundException c){
-	    System.out.println("error");// throw new FileNotFoundException("no");
+	//instead of a try/catch, you can throw the FileNotFoundException.
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
+	int row=0;
+	int col=0;
+	while(inf.hasNextLine()){
+	    String line = inf.nextLine();
+	    System.out.println(line);
+	    col=line.length();
+	    row++;
+	}
+	
+	Scanner inf2 = new Scanner(text);
+	//	String line = inf2.nextLine();
+	maze= new char[row][col];
+	row=0;
+	while(inf2.hasNextLine()){
+	    String line2 = inf2.nextLine();
+	    for(int i=0;i<col;i++){
+		maze[row][i]=line2.charAt(i);
+	    }
+	    row++;
 	}
 	/*	if(file==false){
-	    throw new FileNotFoundException();
-	    }*/
-	try{checker();
-	}catch(IllegalStateException x){
-	    System.out.println("not a maze");
-	}
-	/*if(checker()==false){
+	throw new FileNotFoundException();
+	}*/
+	if(!checker()){
 	    throw new IllegalStateException();
-	    }*/
+	}
     }
+    /*if(checker()==false){
+      throw new IllegalStateException();
+      }*/
 
 
-    public void checker() throws IllegalStateException{
-	try{check=false;
-	    int s=0;
-	    int e=0;
-	    for(int i=0;i<maze.length;i++){
-		for(int j=0;j<maze[0].length;j++){
+    public static boolean checker(){
+	int s=0;
+	int e=0;
+	for(int i=0;i<maze.length;i++){
+	    for(int j=0;j<maze[0].length;j++){
 		    if(maze[i][j]=='S'){
 			s++;
 		    }
 		    if(maze[i][j]=='E'){
 			e++;
 		    }
-		}
 	    }
-	    if(s==1 && e==1){
-		check=true;
-	    }
-	}catch(IllegalStateException x){
-	    //System.out.println("not a maze");
 	}
+	if(s==1 && e==1){
+	    return true;
+	}
+	return false;
     }
-    private void wait(int millis){
+    private static void wait(int millis){
 	try {
 	    Thread.sleep(millis);
 	}
@@ -70,11 +84,11 @@ public class Maze{
 	}
     }
 
-    public void setAnimate(boolean b){
+    public static void setAnimate(boolean b){
         animate = b;
     }
 
-    public void clearTerminal(){
+    public static void clearTerminal(){
         //erase terminal, go to top left of screen.
         System.out.println("\033[2J\033[1;1H");
     }
@@ -84,14 +98,22 @@ public class Maze{
       Note the helper function has the same name, but different parameters.
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
-    public int solve(){
+    public static int solve(){
 	//find the location of the S. 
-
+	int sx=0;
+	int sy=0;
+	for(int i=0;i<maze.length;i++){
+	    for(int j=0;j<maze[0].length;j++){
+		if(maze[i][j]=='S'){
+		    sx=i;
+		    sy=j;
+		}
+	    }
+	}
 	//erase the S
-
+	maze[sx][sy]=' ';
 	//and start solving at the location of the s.
-	//return solve(???,???);
-	return 1;
+	return solve(sx,sy,0);
     }
 
     /*
@@ -108,68 +130,68 @@ public class Maze{
       Note: This is not required based on the algorithm, it is just nice visually to see.
       All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
-	int solved=0;
-	for (int i=row;i<maze.length;i++){
-	    for(int j=col;j<maze[0].length;j++){
-		if (able(i,j)){
-		    if(solve(i+1,j)>0){
-			return solve+=solve(i+1,j);
-		    }
-		}
+    private static int min(int a, int b){
+	if(a!=-1 && b!=-1){
+	    if(a<b){
+		return a;
 	    }
+	    return b;
 	}
-        //automatic animation! You are welcome.
-        if(animate){
+	if(a==-1){
+	    return b;
+	}
+	return a;
+    }
+    private static int solve(int row, int col, int count){ //you can add more parameters since this is private
+	if(animate){
             clearTerminal();
-            System.out.println(this);
+	    // System.out.println(this);
             wait(20);
-        }
+	}
+	int i=row;
+	int j=col;
+	if(maze[row][col]=='E'){
+	    return count;
+	}
+	if (maze[row][col]==' '){
+	    maze[row][col]='@';
+	    int a=solve(i+1,j,count+1);
+	    int b=solve(i-1,j,count+1);
+	    int c=solve(i,j+1,count+1);
+	    int d=solve(i,j-1,count+1);
+	    int number=min(a,b);
+	    number=min(number,c);
+	    number=min(number,d);
+	    if(number==-1){
+		maze[row][col]='.';
+	    }
+	    return number;
+	}
 
         //COMPLETE SOLVE
         return -1; //so it compiles
     }
 
-    /**
-       for(int i=0;i<arry.length;i++){
-       String out="";	   
-       for(int j=0;j<arry[0].length;j++){
-       out+=arry[i][j];
+    public String toString(){
+	String out="";
+	for(int i=0;i<maze.length;i++){	   
+	    for(int j=0;j<maze[0].length;j++){
+		out+=maze[i][j];
 	    }
-	    System.out.println(out);
-	    }
-    */
-    public void ReadFile(String files) throws FileNotFoundException{
-	try{
-	    file=false;
-	    //instead of a try/catch, you can throw the FileNotFoundException.
-	    File text = new File(files);// can be a path like: "/full/path/to/file.txt"
-	    Scanner inf = new Scanner(text);
-	    int row=0;
-	    int col=0;
-	    while(inf.hasNextLine()){
-		String line = inf.nextLine();
-		System.out.println(line);//hopefully you can do other things with the line
-		col=line.length();
-		row++;
-	    }
-	    
-	    Scanner inf2 = new Scanner(text);
-	    //	String line = inf2.nextLine();
-	    maze= new char[row][col];
-	    row=0;
-	    while(inf2.hasNextLine()){
-		String line = inf2.nextLine();
-		for(int i=0;i<col;i++){
-		    maze[row][i]=line.charAt(i);
-		}
-		row++;
-		// System.out.println(line);//hopefully you can do other things with the line
-	    }
-	    file=true;
+	    out+="\n";
 	}
-	catch(FileNotFoundException c){
-	    // System.out.println("error");
+	return out;
+    }
+    
+    public static void main(String[]args){
+        Maze f;
+	try {
+	    f = new Maze("data1.dat");//true animates the maze.
+	    f.setAnimate(true);
+	    System.out.println(f.solve());
+	    System.out.println(f.toString());
+	} catch (FileNotFoundException e){
+	    System.out.println("wrong");
 	}
     }
 }
