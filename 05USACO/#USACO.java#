@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 public class USACO{
-    private int[][] lake;
+    private static int[][] lake;
     public static int bronze(String filename)throws FileNotFoundException{
 	File text= new File(filename);
 	Scanner inf= new Scanner(text);
@@ -13,6 +13,12 @@ public class USACO{
 	    line+=part;
 	    row++;
 	    col=part.length();
+	}
+	lake=int[row][col];
+	for(int r=0;r<row;r++){
+	    for(int c=0;c<col;c++){
+
+	    }
 	}
 	return -1;
     }
