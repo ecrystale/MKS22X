@@ -16,7 +16,7 @@ public class Maze{
 	int col=0;
 	while(inf.hasNextLine()){
 	    String line = inf.nextLine();
-	    System.out.println(line);
+	    //System.out.println(line);
 	    col=line.length();
 	    row++;
 	}
