@@ -59,11 +59,7 @@ public class USACO{
 		sum+=lake[i][j];
 	    }
 	}
-	int volume=1;
-	for(int num=sum;num==0;num=num%10){
-	    volume=num%10*volume;
-	}
-	return volume*72*72;
+	return sum*72*72;
     }
 
     public static void setlake(int row, int col, int amount){
@@ -108,4 +104,7 @@ public class USACO{
     /**    public static int silver(String filename){
 	
 	   }*/
+    public static void main(String[] args)throws FileNotFoundException{
+	System.out.println(bronze("makelake.1.in"));
+    }
 }
