@@ -37,6 +37,7 @@ public class USACO{
 		    }
 		}
 		r++;
+		row++;
 		System.out.println("1");
 	    }
 	    if(row<lake.length){
