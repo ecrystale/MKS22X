@@ -8,25 +8,30 @@ public class USACO{
 	File text= new File(filename);
 	Scanner inf= new Scanner(text);
 	int row=0;
-	int col=0;
 
 	String setup=inf.nextLine();
 	System.out.println(setup);
 	setupary(setup);
+	lake.toString();
 	while(inf.hasNextLine()){
+	    int col=0;
+	    int place=0;
+	    int r=0;
+	    int c=0;
 	    String part=inf.nextLine();
 	    if(row>=lake.length){
-		int place=0;
-		int r=0;
-		int c=0;
-		for(int i=0;i<part.length()-1;i++){
+		System.out.println("why");
+		for(int i=0;i<part.length()-1;i++){		    
+		    System.out.println("ok1");
 		    if(part.substring(i,i+1).equals(" ")){
 			calls[r][c]=Integer.parseInt(part.substring(place,i));
+			System.out.println(calls[r][c]);
 			c++;
-			place=i+1;
+			place=i+1;      
 		    }
-		    if(i==part.length()){
-			calls[r][c]=Integer.parseInt(part.substring(place,i));
+		    if(i==part.length()-1){
+			calls[r][c]=Integer.parseInt(part.substring(place,i+1));
+			System.out.println(calls[r][c]);
 			c++;
 			place=i+1;
 		    }
@@ -35,11 +40,15 @@ public class USACO{
 		System.out.println("1");
 	    }
 	    if(row<lake.length){
-		int place=0;
 		for(int i=0;i<part.length();i++){
-		    if(part.substring(i,i+1)==" "){
-			lake[row][col]=Integer.parseInt(part.substring(place,i+1));
+		    if(part.substring(i,i+1).equals(" ")){
+			lake[row][col]=Integer.parseInt(part.substring(place,i));
 			col++;
+			place=i+1;
+
+		    }
+		    if(i==part.length()-1){
+			lake[row][col]=Integer.parseInt(part.substring(place,i+1));
 			place=i+1;
 		    }
 		}
