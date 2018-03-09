@@ -9,12 +9,31 @@ public class USACO{
 	Scanner inf= new Scanner(text);
 	int row=0;
 	int col=0;
-	int r=0;
-	int c=0;
+
 	String setup=inf.nextLine();
+	System.out.println(setup);
 	setupary(setup);
 	while(inf.hasNextLine()){
 	    String part=inf.nextLine();
+	    if(row>=lake.length){
+		int place=0;
+		int r=0;
+		int c=0;
+		for(int i=0;i<part.length()-1;i++){
+		    if(part.substring(i,i+1).equals(" ")){
+			calls[r][c]=Integer.parseInt(part.substring(place,i));
+			c++;
+			place=i+1;
+		    }
+		    if(i==part.length()){
+			calls[r][c]=Integer.parseInt(part.substring(place,i));
+			c++;
+			place=i+1;
+		    }
+		}
+		r++;
+		System.out.println("1");
+	    }
 	    if(row<lake.length){
 		int place=0;
 		for(int i=0;i<part.length();i++){
@@ -26,18 +45,8 @@ public class USACO{
 		}
 		row++;
 	    }
-	    if(row>=lake.length){
-		int place=0;
-		for(int i=0;i<part.length();i++){
-		    if(part.substring(i,i+1)==" "){
-			calls[r][c]=Integer.parseInt(part.substring(place,i+1));
-			c++;
-			place=i+1;
-		    }
-		}
-		r++;
-	    }
 	}
+	calls.toString();
 	return solvebronze();
     }
 
@@ -50,13 +59,15 @@ public class USACO{
 	int sum=0;
 	for(int i=0;i<lake.length;i++){
 	    for(int j=0;j<lake[0].length;j++){
-		if(lake[i][j]<elevation){
-		    lake[i][j]=elevation-lake[i][j];
+		if(inbounds(i,j)){
+		    if(lake[i][j]<elevation){
+			lake[i][j]=elevation-lake[i][j];
+		    }
+		    if(lake[i][j]>=elevation){
+			lake[i][j]=0;
+		    }
+		    sum+=lake[i][j];
 		}
-		if(lake[i][j]>=elevation){
-		    lake[i][j]=0;
-		}
-		sum+=lake[i][j];
 	    }
 	}
 	return sum*72*72;
@@ -65,9 +76,11 @@ public class USACO{
     public static void setlake(int row, int col, int amount){
 	for(int i=row;i<row+3;i++){
 	    for(int j=col;col<col+3;j++){
-		int a=lake[i][j];
-		if(a>amount){
-		    lake[i][j]=amount;
+		if(inbounds(i,j)){
+		    int a=lake[i][j];
+		    if(a>amount){
+			lake[i][j]=amount;
+		    }
 		}
 	    }
 	}
@@ -75,15 +88,24 @@ public class USACO{
 
     public static int maxbox(int row, int col){
 	int orig=lake[row][col];
-	for(int i=row;i<row+3;i++){
-	    for(int j=col;col<col+3;j++){
-		int a=lake[i][j];
-		if(a>orig){
-		    orig=a;
+	for(int i=row;i<row+2;i++){
+	    for(int j=col;col<col+2;j++){
+		if(inbounds(i,j)){
+		    int a=lake[i][j];
+		    if(a>orig){
+			orig=a;
+		    }
 		}
 	    }
 	}
 	return orig;
+    }
+
+    public static boolean inbounds(int row, int col){
+	if(row>0 && row<lake.length && col>0 && col<lake[0].length){
+	    return true;
+	}
+	return false;
     }
 
     public static void setupary(String setup){
@@ -91,12 +113,24 @@ public class USACO{
 	int setplace=0;
 	int place=0;
 	for(int i=0;i<setup.length();i++){
-	    if(setup.substring(i,i+1)==" "){
-		set[setplace]=Integer.parseInt(setup.substring(place,i+1));
+	    //System.out.println(setup.substring(i,i+1));
+	    // System.out.println(setup.substring(i,i+1).equals(" "));
+	    if(setup.substring(i,i+1).equals(" ")){
+		System.out.println("exist");
+		set[setplace]=Integer.parseInt(setup.substring(place,i));
+		System.out.println(set[setplace]);
 		place=i+1;
 		setplace++;
 	    }
+	    if(i==setup.length()-1){
+		System.out.println("exist2");
+		set[setplace]=Integer.parseInt(setup.substring(i,i+1));
+		System.out.println(set[setplace]);
+		place=i+1;
+		setplace++;;
+	    }
 	}
+	//	set[3]=Integer.parseInt(setup.substring(setup.length()-1,setup.length()));
 	lake=new int[set[0]][set[1]];
 	elevation=set[2];
 	calls=new int[set[3]][3];
@@ -106,5 +140,6 @@ public class USACO{
 	   }*/
     public static void main(String[] args)throws FileNotFoundException{
 	System.out.println(bronze("makelake.1.in"));
+	//	System.out.println(bronze("makelake.2.in"));
     }
 }
