@@ -10,7 +10,6 @@ public class USACO{
 	int row=0;	    
 	int r=0;
 	String setup=inf.nextLine();
-	//System.out.println(setup);
 	setupary(setup);
 	lake.toString();
 	while(inf.hasNextLine()){
@@ -121,8 +120,7 @@ public class USACO{
 		setplace++;
 	    }
 	    if(i==setup.length()-1){
-		set[setplace]=Integer.parseInt(setup.substring(i,i+1));
-
+		set[setplace]=Integer.parseInt(setup.substring(place,i+1));
 		place=i+1;
 		setplace++;;
 	    }
