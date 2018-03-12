@@ -129,9 +129,9 @@ public class USACO{
 	elevation=set[2];
 	calls=new int[set[3]][3];
     }
-    /**    public static int silver(String filename){
+    public static int silver(String filename){
 	
-	   }*/
+    }
     public static void main(String[] args)throws FileNotFoundException{
 	System.out.println(bronze("makelake.1.in"));
 	System.out.println(bronze("makelake.2.in"));
