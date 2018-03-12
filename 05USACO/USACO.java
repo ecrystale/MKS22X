@@ -167,11 +167,19 @@ public class USACO{
 	    }
 	    if(row<field.length){
 		for(int i=0;i<part.length();i++){
-		    field[r][i]=part.charAt(i);
+		    field[row][i]=part.charAt(i);
 		}
 		row++;
 	    }
 	}
+	String ok="";
+	for(int i=0;i<field.length;i++){
+	    for(int j=0;j<field[0].length;j++){
+		ok+=field[i][j]+" ";
+	    }
+	    ok+="\n";
+	}
+	System.out.println(ok);
 	return solvesilver();
     }
 
@@ -204,7 +212,6 @@ public class USACO{
 	    for(int r=0;r<copy.length;r++){
 		for(int c=0;c<copy[0].length;c++){
 		    if(copy[r][c]>=1){
-			//copy2[r][c]=0;
 			if(cantravel(r+1,c)){
 			    copy2[r+1][c]+=copy[r][c];
 			}
@@ -220,7 +227,6 @@ public class USACO{
 		    }
 		}
 	    }
-	    //copy=copy2;
 	    String view="";
 	    for(int k=0;k<copy.length;k++){
 		for(int j=0;j<copy[0].length;j++){
@@ -230,15 +236,12 @@ public class USACO{
 		view+="\n";
 	    }
 	    System.out.println(view);
-	    //copy2=clear;
-	    //	view="";
+
 	    for(int k=0;k<copy2.length;k++){
 		for(int j=0;j<copy2[0].length;j++){
 		    copy2[k][j]=0;
-		    //view+=copy2[k][j]+" ";
 		}
 	    }
-	    //	System.out.println(view);
 	    
 	}
 	sum=copy[tr][tc];
@@ -268,9 +271,5 @@ public class USACO{
 	    return true;
 	}	
 	return false;
-    }
-    public static void main(String[] args)throws FileNotFoundException{
-	System.out.println(silver("ctravel.1.in"));
-	System.out.println(silver("ctravel.2.in"));
     }
 }
