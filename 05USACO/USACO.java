@@ -129,9 +129,14 @@ public class USACO{
 	elevation=set[2];
 	calls=new int[set[3]][3];
     }
-    private static int[3] start;
-    private static int[4] end;
+
+
+    //SILVER
+    private static int[] start=new int[3];
+    private static int[] end=new int[4];
     private static char[][] field;
+    private static int[][] copy;
+    private static int time;
     public static int silver(String filename)throws FileNotFoundException{
 	File text= new File(filename);
 	Scanner inf= new Scanner(text);
@@ -139,30 +144,88 @@ public class USACO{
 	int r=0;
 	String setups=inf.nextLine();
 	setupsilver(setups);
-	lake.toString();
+	field=new char[start[0]][start[1]];
+	time=start[2];
+	while(inf.hasNextLine()){
+	    int input=0;
+	    int place=0;
+	    int c=0;
+	    String part=inf.nextLine();
+	    if(row>=field.length){
+		for(int i=0;i<part.length();i++){
+		    if(part.substring(i,i+1).equals(" ")){
+			end[input]=Integer.parseInt(part.substring(place,i));
+			input++;
+			place=i+1;
+		    }
+		    if(i==part.length()-1){
+		        end[input]=Integer.parseInt(part.substring(place,i+1));
+			place=i+1;
+		    }
+		}
+		row++;
+	    }
+	    if(row<field.length){
+		for(int i=0;i<part.length();i++){
+		    field[r][i]=part.charAt(i);
+		}
+		row++;
+	    }
+	}
+	return solvesilver();
+    }
+
+    public static int solvesilver(){
+	copy=new int[field.length][field[0].length];
+	int sum=0;
+	int row=end[0];
+	int col=end[1];
+	for(int i=1;i<time+1;i++){
+	    if(cantravel(row+1,col)){
+		copy[row+i][col]=copy[row+i][col]+1;
+	    }
+	    if(cantravel(row-1,col)){
+		copy[row-i][col]=copy[row-i][col]+1;
+	    }
+	    if(cantravel(row,col+1)){
+		copy[row][col+i]=copy[row][col+i]+1;
+	    }
+	    if(cantravel(row,col-1)){
+		copy[row][col-i]=copy[row][col-i]+1;
+	    }
+	}
+	if(cantravel(row+1,col)){
+	    copy[row+1][col]=;
+	}
+	if(cantravel(row-1,col)){
+	    copy[row-1][col]=1;
+	}
+	if(cantravel(row,col+1)){
+	    copy[row][col+1]=1;
+	}
+	if(cantravel(row,col-1)){
+	    copy[row][col-1]=1;
+	}
     }
     public static void setupsilver(String starting){
 	int setplace=0;
 	int place=0;
-	for(int i=0;i<setup.length();i++){
-	    if(setup.substring(i,i+1).equals(" ")){
-		set[setplace]=Integer.parseInt(setup.substring(place,i));
+	for(int i=0;i<starting.length();i++){
+	    if(starting.substring(i,i+1).equals(" ")){
+		start[setplace]=Integer.parseInt(starting.substring(place,i));
 		place=i+1;
 		setplace++;
 	    }
-	    if(i==setup.length()-1){
-		set[setplace]=Integer.parseInt(setup.substring(place,i+1));
+	    if(i==starting.length()-1){
+		start[setplace]=Integer.parseInt(starting.substring(place,i+1));
 		place=i+1;
 		setplace++;;
 	    }
 	}
-	lake=new int[set[0]][set[1]];
-	elevation=set[2];
-	calls=new int[set[3]][3];
     }
     public static boolean cantravel(int row, int col){
 	if(row>=0 && row<lake.length && col>=0 && col<lake[0].length){
-	    if(field[row][col].equals("*")){
+	    if(field[row][col]==('*')){
 		return false;
 	    }
 	    return true;
