@@ -182,57 +182,66 @@ public class USACO{
 		copy[i][j]=0;
 	    }
 	}
-	int[][] copy2=copy;
+       	int[][] copy2=new int[copy.length][copy[0].length];
+	for(int i=0;i<copy2.length;i++){
+	    for(int j=0;j<copy2[0].length;j++){
+		copy2[i][j]=0;
+	    }
+	}
+	int[][] clear=new int[copy.length][copy[0].length];
+	for(int i=0;i<clear.length;i++){
+	    for(int j=0;j<clear[0].length;j++){
+		clear[i][j]=0;
+	    }
+	}
 	int sum=0;
-	int row=end[0];
-	int col=end[1];
-	int tr=end[2];
-	int tc=end[3];
+	int row=end[0]-1;
+	int col=end[1]-1;
+	int tr=end[2]-1;
+	int tc=end[3]-1;
 	copy[row][col]=1;
-	for(int i=1;i<time+1;i++){
-	    for(int r=0;r<row;r++){
-		for(int c=0;c<col;c++){
-		    if(copy[r][c]==1){
+	for(int i=0;i<time;i++){
+	    for(int r=0;r<copy.length;r++){
+		for(int c=0;c<copy[0].length;c++){
+		    if(copy[r][c]>=1){
+			//copy2[r][c]=0;
 			if(cantravel(r+1,c)){
-			    copy[r+i][c]=1;
+			    copy2[r+1][c]+=copy[r][c];
 			}
-			if(cantravel(row-1,col)){
-			    copy[r-i][c]=1;
+			if(cantravel(r-1,c)){
+			    copy2[r-1][c]+=copy[r][c];
 			}
-			if(cantravel(row,col+1)){
-			    copy[r][c+i]=1;
+			if(cantravel(r,c+1)){
+			    copy2[r][c+1]+=copy[r][c];
 			}
-			if(cantravel(row,col-1)){
-			    copy[r][c-i]=1;
-			}
-			copy[r][c]=0;
-			if(i==time){
-			    if(cantravel(r+1,c)){
-				if(r+1==tr && c==tc){
-				    sum++;
-				    System.out.println(sum);
-				}
-			    }
-			    if(cantravel(row-1,col)){
-				if(r-1==tr && c==tc){
-				    sum++;
-				}
-			    }
-			    if(cantravel(row,col+1)){
-				if(r==tr && c+1==tc){
-				    sum++;
-				}
-			    }
-			    if(cantravel(row,col-1)){
-				if(r==tr && c-1==tc){
-				    sum++;
-				}
-			    }
+			if(cantravel(r,c-1)){
+			    copy2[r][c-1]+=copy[r][c];
 			}
 		    }
 		}
 	    }
+	    //copy=copy2;
+	    String view="";
+	    for(int k=0;k<copy.length;k++){
+		for(int j=0;j<copy[0].length;j++){
+		    copy[k][j]=copy2[k][j];
+		    view+=copy[k][j]+" ";
+		}
+		view+="\n";
+	    }
+	    System.out.println(view);
+	    //copy2=clear;
+	    //	view="";
+	    for(int k=0;k<copy2.length;k++){
+		for(int j=0;j<copy2[0].length;j++){
+		    copy2[k][j]=0;
+		    //view+=copy2[k][j]+" ";
+		}
+	    }
+	    //	System.out.println(view);
+	    
 	}
+	sum=copy[tr][tc];
 	return sum;
     }
     public static void setupsilver(String starting){
@@ -252,12 +261,12 @@ public class USACO{
 	}
     }
     public static boolean cantravel(int row, int col){
-	if(row>=0 && row<lake.length && col>=0 && col<lake[0].length){
-	    if(field[row][col]==('*')){
+	if(row>=0 && row<field.length && col>=0 && col<field[0].length){
+	    if(field[row][col]=='*'){
 		return false;
 	    }
 	    return true;
-	}
+	}	
 	return false;
     }
     public static void main(String[] args)throws FileNotFoundException{
