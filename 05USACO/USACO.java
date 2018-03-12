@@ -177,35 +177,63 @@ public class USACO{
 
     public static int solvesilver(){
 	copy=new int[field.length][field[0].length];
+	for(int i=0;i<copy.length;i++){
+	    for(int j=0;j<copy[0].length;j++){
+		copy[i][j]=0;
+	    }
+	}
+	int[][] copy2=copy;
 	int sum=0;
 	int row=end[0];
 	int col=end[1];
+	int tr=end[2];
+	int tc=end[3];
+	copy[row][col]=1;
 	for(int i=1;i<time+1;i++){
-	    if(cantravel(row+1,col)){
-		copy[row+i][col]=copy[row+i][col]+1;
+	    for(int r=0;r<row;r++){
+		for(int c=0;c<col;c++){
+		    if(copy[r][c]==1){
+			if(cantravel(r+1,c)){
+			    copy[r+i][c]=1;
+			}
+			if(cantravel(row-1,col)){
+			    copy[r-i][c]=1;
+			}
+			if(cantravel(row,col+1)){
+			    copy[r][c+i]=1;
+			}
+			if(cantravel(row,col-1)){
+			    copy[r][c-i]=1;
+			}
+			copy[r][c]=0;
+			if(i==time){
+			    if(cantravel(r+1,c)){
+				if(r+1==tr && c==tc){
+				    sum++;
+				    System.out.println(sum);
+				}
+			    }
+			    if(cantravel(row-1,col)){
+				if(r-1==tr && c==tc){
+				    sum++;
+				}
+			    }
+			    if(cantravel(row,col+1)){
+				if(r==tr && c+1==tc){
+				    sum++;
+				}
+			    }
+			    if(cantravel(row,col-1)){
+				if(r==tr && c-1==tc){
+				    sum++;
+				}
+			    }
+			}
+		    }
+		}
 	    }
-	    if(cantravel(row-1,col)){
-		copy[row-i][col]=copy[row-i][col]+1;
-	    }
-	    if(cantravel(row,col+1)){
-		copy[row][col+i]=copy[row][col+i]+1;
-	    }
-	    if(cantravel(row,col-1)){
-		copy[row][col-i]=copy[row][col-i]+1;
-	    }
 	}
-	if(cantravel(row+1,col)){
-	    copy[row+1][col]=;
-	}
-	if(cantravel(row-1,col)){
-	    copy[row-1][col]=1;
-	}
-	if(cantravel(row,col+1)){
-	    copy[row][col+1]=1;
-	}
-	if(cantravel(row,col-1)){
-	    copy[row][col-1]=1;
-	}
+	return sum;
     }
     public static void setupsilver(String starting){
 	int setplace=0;
@@ -233,7 +261,7 @@ public class USACO{
 	return false;
     }
     public static void main(String[] args)throws FileNotFoundException{
-	System.out.println(bronze("makelake.1.in"));
-	System.out.println(bronze("makelake.2.in"));
+	System.out.println(silver("ctravel.1.in"));
+	System.out.println(silver("ctravel.2.in"));
     }
 }
