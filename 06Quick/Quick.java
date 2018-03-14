@@ -4,7 +4,7 @@ public class Quick{
     public static int quickselect(int []data, int k){
 	int start=0;
 	int end=data.length-1;
-        for(int i=0;i<data.length+1;i++){
+        for(int i=0;i<data.length;i++){
 	    int place=partition(data,start,end);
 	    if(place==k){
 		return data[place];
@@ -25,10 +25,10 @@ public class Quick{
 	int b=data[pivot];
 	data[start]=b;
 	data[pivot]=a;
-	pivot=b;
-	//start++;
+	//data[pivot]=b;
+	int origs=start;
 	//end--;
-	for(int i=start;start<end;i++){
+	for(int i=start+1;start<end;i++){
 	    if(data[i]<b){
 		int s1=data[i];
 		int s2=data[start];
@@ -44,6 +44,11 @@ public class Quick{
 		end--;
 	    }
 	}
+	int s1=data[origs];
+	int s2=data[end];
+	data[origs]=s2;
+	data[end]=s1;
+	//	end--;
 	return end;
     }
     public static void main(String[] args){
