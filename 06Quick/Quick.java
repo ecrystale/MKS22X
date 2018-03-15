@@ -9,15 +9,16 @@ public class Quick{
 	    if(place==k){
 		return data[place];
 	    }
-	    if(place<k){
+	    if(k>place){
 	        start=place+1;
 	    }
-	    if(place>k){
-		end=place;
+	    if(k<place){
+		end=place-1;
 	    }
 	}
 	return -1;
     }
+
     public static int partition ( int [] data, int start, int end){
 	Random rand = new Random();
 	int  pivot = rand.nextInt(end-start+1)+start;
@@ -25,18 +26,18 @@ public class Quick{
 	int b=data[pivot];
 	data[start]=b;
 	data[pivot]=a;
-	//data[pivot]=b;
-	int origs=start;
-	//end--;
-	for(int i=start+1;start<end;i++){
-	    if(data[i]<b){
+	int lo=start;
+	int hi=end;
+	start++;
+	for(int i=start;start<=end;i++){
+	    if(data[i]<=data[lo]){
 		int s1=data[i];
 		int s2=data[start];
 		data[i]=s2;
 		data[start]=s1;
 		start++;
 	    }
-	    if(data[i]>b){
+	    if(data[i]>data[lo]){
 		int s1=data[i];
 		int s2=data[end];
 		data[i]=s2;
@@ -44,13 +45,58 @@ public class Quick{
 		end--;
 	    }
 	}
-	int s1=data[origs];
-	int s2=data[end];
-	data[origs]=s2;
-	data[end]=s1;
-	//	end--;
+	if(data[end]>data[lo]){
+	    int s1=data[end-1];
+	    int s2=data[lo];
+	    data[end-1]=s2;
+	    data[lo]=s1;
+	    end--;
+	    //return start;
+	}
+        else{
+	    int s1=data[end];
+	    int s2=data[lo];
+	    data[end]=s2;
+	    data[lo]=s1;
+	    //start++;
+	    // return end;
+	}
+
 	return end;
     }
+    /**
+    public static int partition ( int [] data, int start, int end){
+	Random rand = new Random();
+	int  pivot = rand.nextInt(end-start)+start;
+	int a=data[start];
+	int b=data[pivot];
+	data[start]=b;
+	data[pivot]=a;
+	pivot=start;
+	start++;
+	for(int i=start;start<end+1;i++){
+	    if(data[i]<=a){
+		int s1=data[i];
+		int s2=data[start];
+		data[i]=s2;
+		data[start]=s1;
+		start++;
+	    }
+	    if(data[i]>a){
+		int s1=data[i];
+		int s2=data[end];
+		data[i]=s2;
+		data[end]=s1;
+		end--;
+	    }
+	}
+	int s1=data[pivot];
+	int s2=data[end];
+	data[pivot]=s2;
+	data[end]=s1;
+	return end;
+    }
+    */
     public static void main(String[] args){
         int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
 	System.out.println(quickselect( ary , 0 ));// would return 0
