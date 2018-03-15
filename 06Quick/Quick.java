@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.Random;
 public class Quick{
+    public static void quicksort(int[]ary){
+    }
+
     public static int quickselect(int []data, int k){
 	int start=0;
 	int end=data.length-1;
@@ -22,46 +25,40 @@ public class Quick{
     public static int partition ( int [] data, int start, int end){
 	Random rand = new Random();
 	int  pivot = rand.nextInt(end-start+1)+start;
-	int a=data[start];
-	int b=data[pivot];
-	data[start]=b;
-	data[pivot]=a;
+	swap(data,start,pivot);
 	int lo=start;
-	int hi=end;
 	start++;
 	int i=start;
 	while(i<end){
-	    if(data[i]<=data[lo]){
-		int s1=data[i];
-		int s2=data[start];
-		data[i]=s2;
-		data[start]=s1;
+	    if(data[i]==data[lo]){
+		i++;
+	    }
+	    if(data[i]<data[lo]){
+		swap(data,i,start);
 		start++;
 		i++;
 	    }
 	    if(data[i]>data[lo]){
-		int s1=data[i];
-		int s2=data[end];
-		data[i]=s2;
-		data[end]=s1;
+		swap(data,i,end);
 		end--;
 	    }
 	}
 	if(data[end]>data[lo]){
-	    int s1=data[end-1];
-	    int s2=data[lo];
-	    data[end-1]=s2;
-	    data[lo]=s1;
+	    swap(data,end-1,lo);
 	    end--;
 	}
         else{
-	    int s1=data[end];
-	    int s2=data[lo];
-	    data[end]=s2;
-	    data[lo]=s1;
+	    swap(data,end,lo);
 	}
 
 	return end;
+    }
+
+    public static void swap(int[] data,int one, int two){
+	int s1=data[one];
+	int s2=data[two];
+	data[one]=s2;
+	data[two]=s1;
     }
     
     public static void main(String[] args){
