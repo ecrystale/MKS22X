@@ -29,13 +29,15 @@ public class Quick{
 	int lo=start;
 	int hi=end;
 	start++;
-	for(int i=start;start<=end;i++){
+	int i=start;
+	while(i<end){
 	    if(data[i]<=data[lo]){
 		int s1=data[i];
 		int s2=data[start];
 		data[i]=s2;
 		data[start]=s1;
 		start++;
+		i++;
 	    }
 	    if(data[i]>data[lo]){
 		int s1=data[i];
