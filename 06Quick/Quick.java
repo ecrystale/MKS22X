@@ -1,7 +1,18 @@
 import java.util.Arrays;
 import java.util.Random;
 public class Quick{
-    public static void quicksort(int[]ary){
+    public static void quicksort(int[] ary){
+	sortH(ary,0,ary.length);
+    }
+
+    public static void sortH(int[] ary, int start, int end){
+	int lo=start;
+	int hi=end;
+	int a=partition(ary,lo,hi);
+        if(hi-lo>0){
+	    sortH(ary,lo,a-1);
+	    sortH(ary,a+1,hi);
+	}
     }
 
     public static int quickselect(int []data, int k){
@@ -60,7 +71,7 @@ public class Quick{
 	data[one]=s2;
 	data[two]=s1;
     }
-    
+    /**
     public static void main(String[] args){
         int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
 	System.out.println(quickselect( ary , 0 ));// would return 0
@@ -70,5 +81,5 @@ public class Quick{
 	System.out.println(quickselect( ary , 4 ));//  would return 15
 	System.out.println(quickselect( ary , 5 ));//  would return 23
 	
-    }
+	}*/
 }
