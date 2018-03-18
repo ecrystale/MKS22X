@@ -17,7 +17,6 @@ public class Quick{
 	}
     }
 
-    
     public static int quickselect(int []data, int k){
 	int start=0;
 	int end=data.length-1;
@@ -74,6 +73,7 @@ public class Quick{
 	data[one]=s2;
 	data[two]=s1;
     }
+
     public static void toString(int[] data){
 	String all="";
 	for(int i=0;i<data.length;i++){
@@ -81,6 +81,8 @@ public class Quick{
 	}
 	System.out.println(all);
     }
+
+    /**
     public static void main(String[] args){
         int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
 	toString(ary);
@@ -96,5 +98,5 @@ public class Quick{
 	quicksort(ary);
 	toString(ary);
 	
-    }
+	}*/
 }
