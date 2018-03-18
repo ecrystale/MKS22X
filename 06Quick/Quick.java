@@ -3,24 +3,20 @@ import java.util.Random;
 public class Quick{
     public static void quicksort(int[] ary){
 	int start=0;
-	int i=1;
-	int gt=ary.length-1;
 	int end=ary.length-1;
-        sortH(ary,start,end);
-
+	sortH(ary,start,end);
     }
     
     
     public static void sortH(int[] ary, int start, int end){
-	int i=start+1;
-	int gt=end;
-	//while(gt-i>0){
-	int place=partition(ary,start,end);
-	sortH(ary,start,place-1);
-	sortH(ary,place+1;end);
+        while(end>start){
+	    int place=partition(ary,start,end);
+	    sortH(ary,start,place-1);
+	    sortH(ary,place+1,end);
+	    end=start;
 	}
-	
     }
+
     
     public static int quickselect(int []data, int k){
 	int start=0;
@@ -78,7 +74,7 @@ public class Quick{
 	data[one]=s2;
 	data[two]=s1;
     }
-    public void toString(int[] data){
+    public static void toString(int[] data){
 	String all="";
 	for(int i=0;i<data.length;i++){
 	    all+=data[i]+" ";
@@ -87,14 +83,18 @@ public class Quick{
     }
     public static void main(String[] args){
         int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
+	toString(ary);
+	quicksort(ary);
+	toString(ary);
 	System.out.println(quickselect( ary , 0 ));// would return 0
 	System.out.println(quickselect( ary , 1 ));//  would return 2
 	System.out.println(quickselect( ary , 2 ));  //would return 5
 	System.out.println(quickselect( ary , 3 ));//  would return 10
 	System.out.println(quickselect( ary , 4 ));//  would return 15
 	System.out.println(quickselect( ary , 5 ));//  would return 23
+	toString(ary);
 	quicksort(ary);
-	System.out.println(ary);
+	toString(ary);
 	
     }
 }
