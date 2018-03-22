@@ -8,9 +8,19 @@ public class Merge{
     }
     public static void msort(int[] temp, int[] data, int lo, int hi){
 	int mid=(lo+hi)/2;
+	String all="";
+	for(int k=lo;k<hi;k++){
+	    all+=temp[k]+" ";
+	}
+	System.out.println("merging00 "+all);
 	if(lo<hi){
 	    msort(temp,data,lo,mid);
 	    msort(temp,data,mid+1,hi);
+	    all="";
+	    for(int k=lo;k<hi;k++){
+		all+=temp[k]+" ";
+	    }
+	    System.out.println("merging "+all);
 	    merge(data,temp,lo,mid,hi);
 	}
     }
@@ -115,8 +125,8 @@ public class Merge{
 	System.out.println(all);
     }
     public static void main(String[] args){
-	int[] ary= { 2, 10, 15, 23, 0,  5};
-	int[] ary2= { 2, 10, 15, 23, 0,  5};
+	int[] ary= { 2, 15, 10, 23,7, 0,  5};
+	int[] ary2= { 2, 1, 15, 23, 0,  5};
 	toString(ary);
 	mergesort(ary);
 	toString(ary);
