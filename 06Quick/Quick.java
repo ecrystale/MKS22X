@@ -10,13 +10,49 @@ public class Quick{
     
     public static void sortH(int[] ary, int start, int end){
         while(end>start){
-	    int place=partition(ary,start,end);
-	    sortH(ary,start,place-1);
-	    sortH(ary,place+1,end);
+	    int[] place=partitionS(ary,start,end);
+	    sortH(ary,start,place[0]);
+	    sortH(ary,place[1],end);
 	    end=start;
 	}
     }
+    public static int[] partitionS ( int [] data, int start, int end){
+	int[] places=new int[2];
+	places[0]=start;
+	places[1]=end;
+	Random rand = new Random();
+	int  pivot = rand.nextInt(end-start+1)+start;
+	swap(data,start,pivot);
+	int lo=start;
+	start++;
+	int i=start;
+	while(i<end){
+	    if(data[i]==data[lo]){
+		i++;
+	    }
+	    if(data[i]<data[lo]){
+		swap(data,i,start);
+		start++;
+		places[0]++;
+		i++;
+	    }
+	    if(data[i]>data[lo]){
+		swap(data,i,end);
+		end--;
+		places[1]--;
+	    }
+	}
+	if(data[end]>data[lo]){
+	    swap(data,end-1,lo);
+	    end--;
+	    places[1]--;
+	}
+        else{
+	    swap(data,end,lo);
+	}
 
+	return places;
+    }
     public static int quickselect(int []data, int k){
 	int start=0;
 	int end=data.length-1;
@@ -82,9 +118,9 @@ public class Quick{
 	System.out.println(all);
     }
 
-    /**
+    /**  
     public static void main(String[] args){
-        int[]ary = { 2, 10, 15, 23, 0,  5};  //sorted :  {0,2,5,10,15,23}
+        int[]ary = { 2,1,1,1,2,2,0,2,0,2};  //sorted :  {0,2,5,10,15,23}
 	toString(ary);
 	quicksort(ary);
 	toString(ary);
@@ -94,9 +130,7 @@ public class Quick{
 	System.out.println(quickselect( ary , 3 ));//  would return 10
 	System.out.println(quickselect( ary , 4 ));//  would return 15
 	System.out.println(quickselect( ary , 5 ));//  would return 23
-	toString(ary);
-	quicksort(ary);
-	toString(ary);
-	
+
 	}*/
+
 }
