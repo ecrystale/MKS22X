@@ -8,17 +8,6 @@ public class Merge{
     }
     public static void msort(int[] temp, int[] data, int lo, int hi){
 	int mid=(lo+hi)/2;
-	String all="";
-	for(int i=lo;i<mid+1;i++){
-	    all+=temp[i]+" ";
-	}
-	System.out.println(all);
-	all="";
-	for(int i=mid+1;i<hi+1;i++){
-	    all+=temp[i]+" ";
-	}
-	System.out.println(all);
-	all="";
 	if(lo<hi){
 	    msort(temp,data,lo,mid);
 	    msort(temp,data,mid+1,hi);
@@ -54,19 +43,14 @@ public class Merge{
 	    }
 	    else{
 		if(temp[lo]>temp[mid]){
-		    System.out.println(lo);
-		    System.out.println("ok2 "+temp[lo]);
-		    System.out.println("ok2 "+temp[mid]);
 		    data[i]=temp[mid];
 		    System.out.println("ok2 "+temp[lo]);
-		    System.out.println(lo);
 		    System.out.println("ok2 "+temp[mid]);
 		    mid++;
 		    i++;
 		}
 		else{
 		    System.out.println("ok3 "+temp[lo]);
-		    System.out.println("ok34 "+data[i]);
 		    //swap(data,temp,i,lo);
 		    data[i]=temp[lo];
 		    System.out.println("ok34 "+data[i]);
