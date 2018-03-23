@@ -9,7 +9,7 @@ public class Merge{
     public static void msort(int[] temp, int[] data, int lo, int hi){
 	int mid=(lo+hi)/2;
 	String all="";
-	for(int k=lo;k<hi;k++){
+	for(int k=lo;k<hi+1;k++){
 	    all+=temp[k]+" ";
 	}
 	System.out.println("merging00 "+all);
@@ -28,11 +28,11 @@ public class Merge{
 	int orig=mid;
 	int origl=lo;	
 	String all="";
-	for(int i=lo;i<mid+1;i++){
-	    all+=temp[i]+" ";
+	for(int l=lo;l<mid+1;l++){
+	    all+=temp[l]+" ";
 	}
 	int i=lo;
-	while(lo<orig+1 &&  mid<=hi){
+	while(i<hi+1){
 	    System.out.println("ok "+(all));
 	    System.out.println(temp[lo]);
 	    if(lo==orig){
