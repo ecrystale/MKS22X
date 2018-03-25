@@ -7,7 +7,6 @@ public class Quick{
 	sortH(ary,start,end);
     }
     
-    
     public static void sortH(int[] ary, int start, int end){
         while(end>start){
 	    int[] place=partitionS(ary,start,end);
@@ -118,43 +117,6 @@ public class Quick{
 	System.out.println(all);
     }
 
-   
-    public static void main(String[] args){
-	/** int[]ary = { 2,1,1,1,2,2,0,2,0,2};  //sorted :  {0,2,5,10,15,23}
-	toString(ary);
-	quicksort(ary);
-	toString(ary);
-	System.out.println(quickselect( ary , 0 ));// would return 0
-	System.out.println(quickselect( ary , 1 ));//  would return 2
-	System.out.println(quickselect( ary , 2 ));  //would return 5
-	System.out.println(quickselect( ary , 3 ));//  would return 10
-	System.out.println(quickselect( ary , 4 ));//  would return 15
-	System.out.println(quickselect( ary , 5 ));//  would return 23*/
-
-	int [] start = new int[1000000];
-	Random c = new Random();
-	for(int i = 0; i < start.length ; i++){
-	    start[i] = c.nextInt();
-	}
-	//System.out.println(toString(start));
-	int [] result = Arrays.copyOf(start,start.length);
-	Arrays.sort(result);
-
-	long startTime = System.currentTimeMillis();
-	
-	Quick.quicksort(start);
-	 
-	long elapsedTime = System.currentTimeMillis() - startTime;
-	if(Arrays.equals(start,result)){
-	    System.out.println("true");
-	}
-	else{
-	    start.toString();
-	}
-	System.out.println(elapsedTime);
-	//System.out.println(toString(start));
-
-    }
     /**
 //Sort testing code
   private static final int INCREASE = 0;
