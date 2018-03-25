@@ -4,7 +4,7 @@ public class Merge{
 	for(int i=0;i<data.length;i++){
 	    temp[i]=data[i];
 	}
-	msort(temp,data,0,data.length-1);
+	msort(data,temp,0,data.length-1);
     }
     public static void msort(int[] temp, int[] data, int lo, int hi){
 	int mid=(lo+hi)/2;
@@ -12,76 +12,88 @@ public class Merge{
 	for(int k=lo;k<hi+1;k++){
 	    all+=temp[k]+" ";
 	}
-	System.out.println("merging00 "+all);
-	if(lo<hi){
+	//System.out.println("merging00 "+all);
+	if(lo<mid+1 && mid<hi){
+	    System.out.println("merging0000 "+all);
 	    msort(temp,data,lo,mid);
 	    msort(temp,data,mid+1,hi);
-	    all="";
-	    for(int k=lo;k<hi;k++){
-		all+=temp[k]+" ";
-	    }
-	    System.out.println("merging "+all);
-	    merge(data,temp,lo,mid,hi);
+	   
+	}
+	System.out.println("merging99 "+all);
+	// merge(data,temp,lo,mid,hi);
+	merge(data,temp,lo,mid,hi);
+	for(int k=lo;k<hi+1;k++){
+	    data[k]=temp[k];
 	}
     }
     public static void merge(int[] data,int[] temp,int lo,int mid, int hi){
 	int orig=mid;
 	int origl=lo;	
 	String all="";
-	for(int l=lo;l<mid+1;l++){
+	for(int l=lo;l<hi+1;l++){
 	    all+=temp[l]+" ";
 	}
 	int i=lo;
 	while(i<hi+1){
 	    System.out.println("ok "+(all));
-	    System.out.println(temp[lo]);
-	    if(lo==orig){
-		for(int j=mid;j<hi;j++){
-		    System.out.println("temp "+temp[j]);
-		    data[i]=temp[j];
-		    i++;
-		    mid++;
-		}
+	    System.out.println(data[lo]);
+	    //System.out.println(data[mid]);
+	    System.out.println(data[hi]);
+	    if(lo==orig+1){
+		//if(data[mid]<data[lo]){
+		//while(i<hi+1){
+			System.out.println("temp "+data[mid+1]);
+			temp[i]=data[mid+1];
+			System.out.println("temp "+temp[i]);
+			i++;
+			//lo++;
+			mid++;
+			// }
+			//}
 	    }
-	    if(hi==mid){
-		for(int j=lo;j<orig+1;j++){
-		    System.out.println("ok0 "+temp[lo]);
-		    data[i]=temp[j];
-		    lo++;
-		    i++;
-		}
+	    else if(hi==mid){
+		//if(data[lo]<data[mid]){
+		// while(i<orig+1){
+		System.out.println("ok0 "+data[lo]);
+		temp[i]=data[lo];
+		System.out.println("ok0 "+temp[i]);
+		lo++;
+		i++;
+			//  }
+		    //}/
 	    }
 	    else{
-		if(temp[lo]>temp[mid]){
-		    data[i]=temp[mid];
-		    System.out.println("ok2 "+temp[lo]);
-		    System.out.println("ok2 "+temp[mid]);
+		if(data[lo]>data[mid+1]){
+		    temp[i]=data[mid+1];
+		    System.out.println("ok2 "+temp[i]);
+		    System.out.println("ok2 "+data[mid+1]);
 		    mid++;
 		    i++;
 		}
-		else{
-		    System.out.println("ok3 "+temp[lo]);
+	        else{
+		    System.out.println("ok3 "+temp[i]);
 		    //swap(data,temp,i,lo);
-		    data[i]=temp[lo];
+		    temp[i]=data[lo];
 		    System.out.println("ok34 "+data[i]);
 		    lo++;
 		    i++;
 		}
 	    }
+	    String allk="";
 	    all="";
-	    for(int k=origl;k<hi;k++){
+	    for(int k=origl;k<hi+1;k++){
 		all+=temp[k]+" ";
-	    }
+		}
 	    System.out.println("Resultstemp "+all);
-	    all="";
-	    for(int k=origl;k<hi;k++){
-		all+=data[k]+" ";
+	    //allk="";
+	    for(int k=origl;k<hi+1;k++){
+		allk+=data[k]+" ";
 	    }
-	    System.out.println("Results "+all);
-	}
+	    System.out.println("Results "+allk);
+	}/**
 	for(int k=origl;k<hi;k++){
-	    temp[k]=data[k];
-	}
+	    data[k]=temp[k];
+	    }*/
 	all="";
 	for(int k=origl;k<hi;k++){
 	    all+=temp[k]+" ";
@@ -124,9 +136,10 @@ public class Merge{
 	}
 	System.out.println(all);
     }
+
+    
     public static void main(String[] args){
-	int[] ary= { 2, 15, 10, 23,7, 0,  5};
-	int[] ary2= { 2, 1, 15, 23, 0,  5};
+	int[] ary= { 2, 15, 23,3432,42,1,1,2,2,2,10, 23,7, 0,  5};
 	toString(ary);
 	mergesort(ary);
 	toString(ary);
