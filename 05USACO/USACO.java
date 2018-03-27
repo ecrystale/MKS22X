@@ -179,7 +179,6 @@ public class USACO{
 	    }
 	    ok+="\n";
 	}
-	System.out.println(ok);
 	return solvesilver();
     }
 
@@ -227,16 +226,6 @@ public class USACO{
 		    }
 		}
 	    }
-	    String view="";
-	    for(int k=0;k<copy.length;k++){
-		for(int j=0;j<copy[0].length;j++){
-		    copy[k][j]=copy2[k][j];
-		    view+=copy[k][j]+" ";
-		}
-		view+="\n";
-	    }
-	    System.out.println(view);
-
 	    for(int k=0;k<copy2.length;k++){
 		for(int j=0;j<copy2[0].length;j++){
 		    copy2[k][j]=0;
