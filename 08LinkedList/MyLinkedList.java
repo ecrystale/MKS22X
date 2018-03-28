@@ -1,4 +1,4 @@
-java.util.LinkedList<E>;
+Njava.util.LinkedList<E>;
 public class MyLinkedList{
     Node first;
     Node last;

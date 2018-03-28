@@ -8,11 +8,11 @@ public class Quick{
     }
     
     public static void sortH(int[] ary, int start, int end){
-        while(end>start){
+        if(end>start){
 	    int[] place=partitionS(ary,start,end);
 	    sortH(ary,start,place[0]);
 	    sortH(ary,place[1],end);
-	    end=start;
+	    //  end=start;
 	}
     }
     public static int[] partitionS ( int [] data, int start, int end){
@@ -46,8 +46,12 @@ public class Quick{
 	    end--;
 	    places[1]--;
 	}
-        else{
+	else if(data[end]<data[lo]){
 	    swap(data,end,lo);
+	    places[1]++;
+	}
+	else{
+	    places[1]++;
 	}
 
 	return places;
@@ -117,8 +121,8 @@ public class Quick{
 	System.out.println(all);
     }
 
-    /**
-//Sort testing code
+    
+    //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
   private static final int STANDARD = 2;
@@ -189,8 +193,14 @@ public class Quick{
     if(Arrays.equals(start,result)){
       System.out.println("PASS Case "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
     }else{
-      System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
+	System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
+	for(int i=0;i<start.length-1;i++){
+	    if(start[i]>start[i+1]){
+		System.out.println(start[i-1]+" "+start[i]+ " "+start[i+1]);
+	    }
+	}
+	//toString(start);
     }
-  }*/
+  }
     
 }
