@@ -23,6 +23,7 @@ public class Quick{
 	int  pivot = rand.nextInt(end-start+1)+start;
 	swap(data,start,pivot);
 	int lo=start;
+	int hi=end;
 	start++;
 	int i=start;
 	while(i<end){
@@ -42,16 +43,23 @@ public class Quick{
 	    }
 	}
 	if(data[end]>data[lo]){
-	    swap(data,end-1,lo);
-	    end--;
+	    /**if(data[end-1]!=data[lo]){
+		swap(data,end-1,lo);
+		places[1]--;
+		}*/
+	    swap(data,places[0],lo);
 	    places[1]--;
 	}
-	else if(data[end]<data[lo]){
-	    swap(data,end,lo);
-	    places[1]++;
-	}
-	else{
-	    places[1]++;
+	else {
+	    if(data[end]<data[lo]){
+		if(data[end-1]<data[lo]){
+		    places[0]++;
+		}
+		swap(data,end,lo);
+	    }
+	    else{
+		swap(data,places[0],lo);
+	    }
 	}
 
 	return places;
@@ -121,7 +129,7 @@ public class Quick{
 	System.out.println(all);
     }
 
-    
+    /**  
     //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -202,5 +210,5 @@ public class Quick{
 	//toString(start);
     }
   }
-    
+   */ 
 }
