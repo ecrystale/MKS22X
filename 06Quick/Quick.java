@@ -44,10 +44,12 @@ public class Quick{
 	}
 	if(data[end]>data[lo]){
 	    /**if(data[end-1]!=data[lo]){
-		swap(data,end-1,lo);
-		places[1]--;
-		}*/
-	    swap(data,places[0],lo);
+	       swap(data,end-1,lo);
+	       places[1]--;
+	       }*/
+	    if(places[0]!=lo){
+		swap(data,places[0],lo);
+	    }
 	    places[1]--;
 	}
 	else {
@@ -58,7 +60,12 @@ public class Quick{
 		swap(data,end,lo);
 	    }
 	    else{
-		swap(data,places[0],lo);
+		//if(places[0]!=lo){
+		    swap(data,places[0],lo);
+		    /**}
+		else{
+		    swap(data,places[1],lo);
+		    }*/
 	    }
 	}
 
@@ -129,7 +136,7 @@ public class Quick{
 	System.out.println(all);
     }
 
-    /**  
+    
     //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -183,6 +190,7 @@ public class Quick{
     return ans;
   }
 
+    /**
   public static void main(String[]args){
     if(args.length < 2)return;
     
@@ -209,6 +217,6 @@ public class Quick{
 	}
 	//toString(start);
     }
-  }
-   */ 
+    }*/
+   
 }
