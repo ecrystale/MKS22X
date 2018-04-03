@@ -29,6 +29,7 @@ public class Quick{
 	while(i<end){
 	    if(data[i]==data[lo]){
 		i++;
+		places[0]++;
 	    }
 	    if(data[i]<data[lo]){
 		swap(data,i,start);
@@ -136,7 +137,7 @@ public class Quick{
 	System.out.println(all);
     }
 
-    
+    /**    
     //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -190,7 +191,7 @@ public class Quick{
     return ans;
   }
 
-    /**
+    
   public static void main(String[]args){
     if(args.length < 2)return;
     
