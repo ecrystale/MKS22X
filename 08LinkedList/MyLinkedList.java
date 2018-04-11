@@ -30,7 +30,7 @@ public class MyLinkedList{
 	    if(i<size-1){
 		all+=getNode(i).getValue()+ ", ";
 	    }else{
-		all+=getNode(i).getValue();
+		all+=""+getNode(i).getValue();
 	    }
 	}
 	all+="}";
@@ -85,55 +85,112 @@ public class MyLinkedList{
 	    return true;
 	}
     }
-    public void add(int index, Integer value){//exceptions!
+   public void add(int index, Integer value){//exceptions!
 	int current=value;
 	int next;
+	Node NN;
 
-	if(0<=index && index<=size){    
-	    for(int i=index;i<=size;i++){
-	        Node work=getNode(i);
-		//	orig=work;
-		next=work.getValue();
-		work.setValue(current);
-		//work.setNext(orig);
-		current=next;
+	if(0<=index && index<=size){ 
+	    if(index==0){
+		NN=new Node(value);
+		Node work=getNode(index);
+		NN.setNext(work);
+		start=NN;
+		work.setPrev(NN);
+		size++;
 	    }
-	    size++;
+	    else if(index==size){
+		add(value);
+		//Node work= new Node(size);
+		//work.setValue(value);
+	    }   
+	    else{
+		NN=new Node(value);
+		Node work=getNode(index);
+		work.getPrev().setNext(NN);
+		NN.setPrev(work.getPrev());
+		NN.setNext(work);
+		work.setPrev(NN);
+		size++;
+		/**
+		   for(int i=index;i<=size;i++){
+		   Node work=getNode(i);
+		   //	orig=work;
+		   next=work.getValue();
+		   NN=work;
+		   work.setValue(current);
+		   work.setNext(NN);
+		   current=next;
+		   }
+		   size++;
+		   }*/
+	    }
 	}
 	else{
 	    throw new IndexOutOfBoundsException();
 	}
-    }
+   }
 
     //The remove methods can cause a problem, this is why we shouldn't 
     //use an int as the data, we need objects to distinguish between index and data
     public boolean remove(Integer value){
-	for(int i=0;i<size;i++){
-	    if(value==getNode(i).getValue()){
-		int y=getNode(i).getValue();
-		getNode(i).setValue(y);
-		size--;
-		return true;
+	boolean found=false;
+        Node work=start;
+	while(work!=null){
+	    //getNode(size).setNext(size);
+	    //Node work=getNode(i);
+	    if(work.getValue()==value){
+		if(work==start){
+		    start=work.getNext();
+		    size--;
+		    return true;
+		}
+		if(work==end){
+		    end=end.getPrev();
+		    end.setNext(null);
+		    size--;
+		    return true;
+		}
+		else{
+		    work.getNext().setPrev(work.getPrev());
+		    work.getPrev().setNext(work.getNext());
+		    size--;
+		    return true;
+		}
 	    }
+	    work=work.getNext();
+	
 	}
 	return false;
     }
+
     public Integer remove(int index){//exceptions!
 	int num;
+	Node work;
 	if(0<=index && index<size){
+	    work=getNode(index);
 	    num=getNode(index).getValue();
-	    for(int i=index;i<size;i++){
-		getNode(i).setValue(getNode(i).getValue());
+	    getNode(index).setValue(getNode(index).getValue());
+	
+	    if(work==start){
+		start=work.getNext();
+		size--;
+		return num;
 	    }
-	    size--;
-	    return num;
+	    if(work==end){
+		end=end.getPrev();
+		end.setNext(null);
+		size--;
+		return num;
+	    }
+	    else{
+		work.getNext().setPrev(work.getPrev());
+		work.getPrev().setNext(work.getNext());
+		size--;
+		return num;
+	    }
 	}
-	if(index==size){
-	    num=getNode(index).getValue();
-	    getNode(index).setValue(getNode(index).getNext().getValue());
-	    size--;
-	    return num;
-	}
+	
 	throw new IndexOutOfBoundsException();
     }
 
