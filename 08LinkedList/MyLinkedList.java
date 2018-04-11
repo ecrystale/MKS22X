@@ -5,15 +5,15 @@ public class MyLinkedList{
     //This method will help you write other
     //methods, it is private to protect your list
     private Node getNode(int index){
-	Node x=new Node(index);
-	return x;
+	return new Node(index);
+        
     }
 
 
     public MyLinkedList(){
 	size=0;
-	start=null;
-        end=null;
+	//start=null;
+        //end=null;
     }
     public String toString(){
 	String all="{";
@@ -29,8 +29,8 @@ public class MyLinkedList{
     }
     public void clear(){
 	size=0;
-	start=null;
-	end=null;
+	//start=null;
+	//end=null;
     }
     public int size(){
 	return size;
@@ -56,6 +56,7 @@ public class MyLinkedList{
     }
 
     public boolean add(Integer newData){
+	//getNode(size).setNext(size);
 	getNode(size).setValue(newData);
 	size++;
 	return true;
@@ -117,6 +118,7 @@ public class MyLinkedList{
 	int data;
 
 	public Node(int index){
+	    data=index;
 	    //next=null;
 	    // prev=null;
 	}
@@ -129,20 +131,20 @@ public class MyLinkedList{
 	private int getValue(){
 	    return data;
 	}
-	private Node setNext(int i){
-	    next=new Node(i);
+	private Node setNext(Node i){
+	    next=i;
 	    return next;
 	}
-	private Node setPrev(int i){
-	    prev=new Node(i);
+	private Node setPrev(Node i){
+	    prev=i;
 	    return prev;
 	}
-	private int setValue(int i){
+	private int setValue(Integer i){
 	    data=i;
 	    return data;
 	}
 	public String toString(){
-	    return prev.getValue()+" "+data+" "+next.getValue();
+	    return data+" ";
 	}
     }
 
@@ -154,6 +156,7 @@ public class MyLinkedList{
      for (int i = 0; i < 10; i++){
        a.add(new Integer(i));
        System.out.println("size: " + a.size() + " LinkedList: " + a.toString());
+       System.out.println(i);
      } //adds the integers from 0 to 9 inclusive and prints out the LinkedList
 
      System.out.println("\nTesting get(int index)");
