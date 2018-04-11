@@ -5,7 +5,16 @@ public class MyLinkedList{
     //This method will help you write other
     //methods, it is private to protect your list
     private Node getNode(int index){
-	return new Node(index);
+	Node current=start;
+	int i=0;
+	while(current!=null){
+	    if(i==index){
+		return current;
+	    }
+	    current=current.getNext();
+	    i++;
+	}	
+	return current;
         
     }
 
@@ -42,8 +51,13 @@ public class MyLinkedList{
 	throw new IndexOutOfBoundsException();
     }
     public Integer set(int index, Integer value){//exceptions!
-	getNode(index).setValue(value);
-	return getNode(index).getValue();
+	if(0<=index && index<size){ 
+
+	    getNode(index).setValue(value);
+	    return getNode(index).getValue();
+	}
+	throw new IndexOutOfBoundsException();
+
     }
 
     public int indexOf(Integer value){
@@ -56,27 +70,39 @@ public class MyLinkedList{
     }
 
     public boolean add(Integer newData){
-	//getNode(size).setNext(size);
-	getNode(size).setValue(newData);
-	size++;
-	return true;
+	if(size==0){
+	    start=new Node(newData);
+	    end=start;
+	    size++;
+	    return true;
+	}else{
+	    //getNode(size).setNext(size);
+	    Node work=new Node(newData);
+	    end.setNext(work);
+	    work.setPrev(end);
+	    end=work;
+	    size++;
+	    return true;
+	}
     }
     public void add(int index, Integer value){//exceptions!
-	if(0<=index && index<size){
-	    int current=value;
-	    int next;
-	    for(int i=index;i<size;i++){
-		next=getNode(i).getNext().getValue();
-		getNode(i).setValue(current);
-		current=next;		
+	int current=value;
+	int next;
+
+	if(0<=index && index<=size){    
+	    for(int i=index;i<=size;i++){
+	        Node work=getNode(i);
+		//	orig=work;
+		next=work.getValue();
+		work.setValue(current);
+		//work.setNext(orig);
+		current=next;
 	    }
 	    size++;
-	}else
-	    if(index==size){
-		add(value);
-	    }else{
-		throw new IndexOutOfBoundsException();
-	    }
+	}
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
     }
 
     //The remove methods can cause a problem, this is why we shouldn't 
@@ -84,7 +110,7 @@ public class MyLinkedList{
     public boolean remove(Integer value){
 	for(int i=0;i<size;i++){
 	    if(value==getNode(i).getValue()){
-		int y=getNode(i).getNext().getValue();
+		int y=getNode(i).getValue();
 		getNode(i).setValue(y);
 		size--;
 		return true;
@@ -97,7 +123,7 @@ public class MyLinkedList{
 	if(0<=index && index<size){
 	    num=getNode(index).getValue();
 	    for(int i=index;i<size;i++){
-		getNode(i).setValue(getNode(i).getNext().getValue());
+		getNode(i).setValue(getNode(i).getValue());
 	    }
 	    size--;
 	    return num;
