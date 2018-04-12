@@ -1,4 +1,5 @@
-public class MyLinkedListImproved<T extends Comparable<T>>{
+import java.util.Iterator;
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node start,end;
     private int size;
 
@@ -196,7 +197,7 @@ public class MyLinkedListImproved<T extends Comparable<T>>{
 
     // -> return the index of the largest value, or -1 if the list is empty
     public int max(){
-	int val=-1;
+	int val=0;
 	if (size==0){
 	    return -1;
 	}
@@ -212,7 +213,7 @@ public class MyLinkedListImproved<T extends Comparable<T>>{
     }
     // -> return the index of the largest value, or -1 if the list is empty
     public int min(){
-	int val=-1;
+	int val=0;
 	if (size==0){
 	    return -1;
 	}
@@ -260,5 +261,32 @@ public class MyLinkedListImproved<T extends Comparable<T>>{
 	public String toString(){
 	    return data+" ";
 	}
+    }
+
+    public Iterator<T> iterator(){
+	return new LLIterator(start);
+    }
+    public class LLIterator implements Iterator<T>{
+	Node next;
+	T current;
+	public LLIterator(Node data){
+	    next=data;
+	}
+	public boolean hasNext(){
+	    return (next!=null);
+	}
+	public T next(){
+	    if(hasNext()){
+	        current=next.getValue();
+		next=next.getNext();
+		return current;
+	    }else{
+		return null;
+	    }
+	}
+	public void remove(){
+	    remove();
+	}
+
     }
 }
