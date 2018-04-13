@@ -70,28 +70,31 @@ public class MyLinkedList{
     }
 
     public boolean add(Integer newData){
-	if(size==0){
-	    start=new Node(newData);
-	    end=start;
-	    size++;
-	    return true;
+	if(newData!=null){
+	    if(size==0){
+		start=new Node(newData);
+		end=start;
+		size++;
+		return true;
+	    }
+	    if(size==1){
+		// Node prev=end;
+		end=new Node(newData);
+		end.setPrev(start);
+		start.setNext(end);
+		size++;
+		return true;
+	    }
+	    else{
+		Node prev=end;
+		end=new Node(newData);
+		end.setPrev(prev);
+		prev.setNext(end);
+		size++;
+		return true;
+	    }
 	}
-	if(size==1){
-	    // Node prev=end;
-	    end=new Node(newData);
-	    end.setPrev(start);
-	    start.setNext(end);
-	    size++;
-	    return true;
-	}
-	else{
-	    Node prev=getNode(size-1);
-	    end=new Node(newData);
-	    end.setPrev(start);
-	    prev.setNext(end);
-	    size++;
-	    return true;
-	}
+	return false;
     }
    public void add(int index, Integer value){//exceptions!
 	int current=value;

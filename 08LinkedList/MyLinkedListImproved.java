@@ -1,4 +1,6 @@
 import java.util.Iterator;
+import java.util.ArrayList;
+@SuppressWarnings("unchecked")
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node start,end;
     private int size;
@@ -288,5 +290,26 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    remove();
 	}
 
+    }
+
+    public class Sorts{
+	ArrayList<MyLinkedListImproved<Integer>>[] ary=new ArrayList[10];
+	Integer amount=0;
+	public void radixsort(MyLinkedListImproved<Integer> data){
+	    Integer num=data.max();
+	    while(num/10>0){
+		amount++;
+		num=num/10;
+	    }
+	}
+	int index=0;
+	public void add(MyLinkedListImproved<Integer> data){
+	    for(int i=0;i<data.size();i++){
+		if((data.get(i)/10).compareTo(amount)<=0){
+		    index=data.get(i)%10;
+		}
+		ary.add(index,data.get(i));
+	    }
+	}
     }
 }
