@@ -69,7 +69,7 @@ public class MyLinkedList{
 	return -1;
     }
 
-    public boolean add(Integer newData){
+     public boolean add(Integer newData){
 	if(newData!=null){
 	    if(size==0){
 		start=new Node(newData);
@@ -86,26 +86,36 @@ public class MyLinkedList{
 		return true;
 	    }
 	    else{
-		Node prev=end;
-		end=new Node(newData);
-		end.setPrev(prev);
-		prev.setNext(end);
+		//Node prev=end;
+		Node current=new Node(newData);
+		Node prev=getNode(size-1);
+		//current.setValue(newData);
+		//current.setNext(end);
+		current.setPrev(prev);
+		prev.setNext(current);
 		size++;
+		end=current;
 		return true;
+		
 	    }
 	}
 	return false;
     }
+
    public void add(int index, Integer value){//exceptions!
 	int current=value;
 	int next;
 	//Node NN;
 
-	if(0<=index && index<=size){ 
+	if(0<=index && index<=size){
+	    if(index>size){
+		throw new IndexOutOfBoundsException();
+	    } 
 	    if(index==0 && size==0){
 		Node NN=new Node(value);
 		//NN.setValue(value);
 		start=NN;
+		end=NN;
 		size++;
 	    }
 	    if(index==0){

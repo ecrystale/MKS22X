@@ -1,6 +1,4 @@
 import java.util.Iterator;
-import java.util.ArrayList;
-@SuppressWarnings("unchecked")
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node start,end;
     private int size;
@@ -73,42 +71,71 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     public boolean add(T newData){
-	if(size==0){
-	    start=new Node(newData);
-	    end=start;
-	    size++;
-	    return true;
-	}else{
-	    //getNode(size).setNext(size);
-	    Node work=new Node(newData);
-	    end.setNext(work);
-	    work.setPrev(end);
-	    end=work;
-	    size++;
-	    return true;
+	if(newData!=null){
+	    if(size==0){
+		start=new Node(newData);
+		end=start;
+		size++;
+		return true;
+	    }
+	    if(size==1){
+		// Node prev=end;
+		end=new Node(newData);
+		end.setPrev(start);
+		start.setNext(end);
+		size++;
+		return true;
+	    }
+	    else{
+		//Node prev=end;
+		Node current=new Node(newData);
+		Node prev=getNode(size-1);
+		//current.setValue(newData);
+		//current.setNext(end);
+		current.setPrev(prev);
+		prev.setNext(current);
+		size++;
+		end=current;
+		return true;
+		
+	    }
 	}
+	return false;
     }
+
    public void add(int index, T value){//exceptions!
 	T current=value;
 	T next;
-	Node NN;
+	//Node NN;
 
-	if(0<=index && index<=size){ 
-	    if(index==0){
-		NN=new Node(value);
-		Node work=getNode(index);
-		NN.setNext(work);
+	if(0<=index && index<=size){
+	    if(index>size){
+		throw new IndexOutOfBoundsException();
+	    } 
+	    if(index==0 && size==0){
+		Node NN=new Node(value);
+		//NN.setValue(value);
 		start=NN;
-		work.setPrev(NN);
+		end=NN;
 		size++;
 	    }
+	    if(index==0){
+		Node NN=new Node(value);
+		Node work=getNode(index);
+		//NN.setValue(value);
+		work.setPrev(NN);
+		NN.setNext(work);
+		start=NN;
+		size++;
+		//end=end.getNext();
+	    }
 	    else if(index==size){
-		add(value);
+	    	add(value);
 		//Node work= new Node(size);
 		//work.setValue(value);
 	    }   
 	    else{
-		NN=new Node(value);
+		Node NN=new Node(value);
 		Node work=getNode(index);
 		work.getPrev().setNext(NN);
 		NN.setPrev(work.getPrev());
@@ -290,26 +317,5 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    remove();
 	}
 
-    }
-
-    public class Sorts{
-	ArrayList<MyLinkedListImproved<Integer>>[] ary=new ArrayList[10];
-	Integer amount=0;
-	public void radixsort(MyLinkedListImproved<Integer> data){
-	    Integer num=data.max();
-	    while(num/10>0){
-		amount++;
-		num=num/10;
-	    }
-	}
-	int index=0;
-	public void add(MyLinkedListImproved<Integer> data){
-	    for(int i=0;i<data.size();i++){
-		if((data.get(i)/10).compareTo(amount)<=0){
-		    index=data.get(i)%10;
-		}
-		ary.add(index,data.get(i));
-	    }
-	}
     }
 }
