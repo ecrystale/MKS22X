@@ -1,10 +1,10 @@
 import java.util.*;
 public class Sorts{
-    @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] ary=new MyLinkedListImproved[10];
-    Integer amount=0;
-    int index=0;
+    @SuppressWarnings("unchecked") static MyLinkedListImproved<Integer>[] ary=new MyLinkedListImproved[10];
+    static Integer amount=0;
+    static int index=0;
 
-    public void radixsort(MyLinkedListImproved<Integer> data){
+    public static void radixsort(MyLinkedListImproved<Integer> data){
 	for(int i=0;i<10;i++){
 	    ary[i]=new MyLinkedListImproved<Integer>();
 	}
@@ -17,7 +17,7 @@ public class Sorts{
 
     }
 
-    public void sorting(MyLinkedListImproved<Integer> data){
+    public static void sorting(MyLinkedListImproved<Integer> data){
 	if(index==0){
 	    Integer maxi=data.max();
 	    for(int i=0;i<data.size();i++){
@@ -32,7 +32,7 @@ public class Sorts{
 	}
     }
 
-    public void runthrough(){
+    public static void runthrough(){
 	for(int i=0;i<10;i++){
 	    if(ary[i]!=null){
 		Integer maxi=ary[i].max();
@@ -56,5 +56,14 @@ public class Sorts{
 	}
 	index++;
     }
+
+
+    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){ 
+	return;
+	//either blank method
+	//OR
+	//radixsort(data)
+    }
+
 
 }
