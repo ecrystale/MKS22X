@@ -1,6 +1,6 @@
 import java.util.*;
 public class Calculator{
-    private static ArrayList ary=new ArrayList();;
+    private static ArrayList ary=new ArrayList();
     
     // static Stack hold=new Stack();
     @SuppressWarnings("unchecked")
