@@ -1,67 +1,61 @@
 import java.util.*;
-@SuppressWarnings("unchecked")
 public class Calculator{    
-    private static ArrayList<String> ary=new ArrayList();
-    private static ArrayList<Double> nums=new ArrayList();
-    // static Stack hold=new Stack();
-    public static void eval(String data){
-        //ary=new ArrayList();
+
+    @SuppressWarnings("unchecked")
+
+    public static double eval(String data){
+
+	ArrayList<String> ary=new ArrayList();
+	ArrayList<Double> nums=new ArrayList();
 	int index=0;
-	for(int i=0;i<data.length();i++){
-	    if((data.substring(i,i+1)).equals(" ")){
+
+	for(int i=0;i<data.length()+1;i++){
+	    if(i==data.length()){
+		ary.add(data.substring(index,i));
+	    }
+	    else if((data.substring(i,i+1)).equals(" ")){
 		ary.add(data.substring(index,i));
 		index=i+1;
 	    }
 	}
-	String toSolve="";
+
 	double result=0;
+
 	for(int i=0;i<ary.size();i++){
-	    System.out.println(ary.get(i));
 	    if((ary.get(i)).equals("+")){
-		result=nums.get(0)+nums.get(1);
-		nums.set(0,result);
-		nums.remove(1);
-		//nums.remove(i-1);
+	        result=nums.get(nums.size()-2)+nums.get(nums.size()-1);
+		nums.set(nums.size()-2,result);
+		nums.remove(nums.size()-1);
 	    }
-	    if((ary.get(i)).equals("-")){
-	        result=nums.get(0)-nums.get(1);
-		nums.set(0,result);
-		nums.remove(1);
+	    else if((ary.get(i)).equals("-")){
+	        result=nums.get(nums.size()-2)-nums.get(nums.size()-1);
+		nums.set(nums.size()-2,result);
+		nums.remove(nums.size()-1);
 	    }
-	    if((ary.get(i)).equals("/")){
-	        result=nums.get(0)/nums.get(1);
-		nums.set(0,result);
-		nums.remove(1);
+	    else if((ary.get(i)).equals("/")){
+	        result=nums.get(nums.size()-2)/nums.get(nums.size()-1);
+		nums.set(nums.size()-2,result);
+		nums.remove(nums.size()-1);
 	    }
-	    if((ary.get(i)).equals("*")){
-	        result=nums.get(0)*nums.get(1);
-		nums.set(0,result);
-		nums.remove(1);
+	    else if((ary.get(i)).equals("*")){
+	        result=nums.get(nums.size()-2)*nums.get(nums.size()-1);
+		nums.set(nums.size()-2,result);
+		nums.remove(nums.size()-1);
 	    }
 	    else{
-		nums.add(i,Double.parseDouble(ary.get(i)));
+		nums.add(Double.parseDouble(ary.get(i)));
 	    }
-	    /**
-	    if((ary.get(i)).equals("+") || (ary.get(i)).equals("-") || (ary.get(i)).equals("/") || (ary.get(i)).equals("*")){
-		String first=toSolve.substring(0,toSolve.length()-1);
-		String last=toSolve.substring(toSolve.length()-1,toSolve.length());
-		toSolve="("+first+(ary.get(i))+last+")";
-		}
-	    else{
-		toSolve+=(ary.get(i));
-		}*/
 
 	}
-	    //System.out.println(toSolve);
-	    System.out.println(result);
+	return nums.get(0);
 
     }
 
 
-
+    /**
     public static void main(String[] args){
-	eval("10 2.0 +");// is 12.0
-	eval("11 3 - 4 + 2.5 *");// is 30.0
-	eval("8 2 + 99 9 - * 2 + 9 -");// is 893.0
-    }
+	System.out.println(eval("10 2.0 +"));// is 12.0
+	System.out.println(eval("11 3 - 4 + 2.5 *"));// is 30.0
+	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));// is 893.0
+	}*/
 }
