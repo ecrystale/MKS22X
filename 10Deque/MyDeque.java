@@ -10,7 +10,7 @@ public class MyDeque<E>{
 	data=(E[])new Object[10];
 	size=0;
 	start=0;
-	end=0;
+	end=1;
 	cap=10;
     }
     @SuppressWarnings("unchecked")
@@ -22,8 +22,8 @@ public class MyDeque<E>{
 	cap=initialCapacity;
 	int mid=cap/2;
 	size=0;
-	start=mid;
-	end=mid+1;
+	start=0;
+	end=1;
     }
 
     public int size(){
@@ -42,10 +42,12 @@ public class MyDeque<E>{
 	    resize();
 	    //start=(start+cap)%cap;
 	}
+
+	start=(cap+start-1)%cap;
 	data[start]=ele;
 	//start--;
 	size++;
-	start=(start-1)%cap;
+	//start=(cap+start-1)%cap;
     }
     public void addLast(E ele){
 	if(ele==null){
@@ -55,29 +57,27 @@ public class MyDeque<E>{
 	    resize();
 	    //end=(end)%cap;
 	}
+	end=(end+1)%cap;
 	data[end]=ele;
 	//end++;
 	size++;
-	end=(end+1)%cap;
     }
     
     @SuppressWarnings("unchecked")
 	public void resize(){
 	int origcap=cap;
-	if(origcap==0){
-	    data=(E[])new Object[1];
-	    cap=1;
+	cap=cap*2+1;
+	E[] copy=(E[])new Object[cap];
+	for(int i=0;i<size;i++){
+	    copy[i]=data[(start+i)%origcap];
 	}
-	else{
-	    cap*=2;
-	    E[] copy=(E[])new Object[cap];
-	    start=cap/2/2;
-	    for(int i=start;i<size;i++){
-		copy[i]=data[(start+i)%origcap];
-		end=i;
-	    }
-	    data=copy;
-	}
+	start=0;
+	end=size-1;
+	//end=(end+1)%cap;
+	//start=(start-1)%cap;
+	//end+=1;
+	data=copy;
+	
     }
     
     //The remove methods:
@@ -85,15 +85,23 @@ public class MyDeque<E>{
     //Throws:
     //NoSuchElementException - if this deque is empty
     public E removeFirst(){
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
 	E result=data[start];
 	data[start]=null;
-	start+=1;
+	start=(start+1)%cap;
+	size--;
 	return result;
     }
     public E removeLast(){
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
 	E result=data[end];
 	data[end]=null;
-	end-=1;
+	end=(cap+end-1)%cap;
+	size--;
 	return result;
     }
 
@@ -102,75 +110,15 @@ public class MyDeque<E>{
     //Throws:
     //NoSuchElementException - if this deque is empty
     public E getFirst(){
-	return data[start];
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
+	return data[(start)%cap];
     }
     public E getLast(){
-	return data[end];
-    }
-
-    public String toString(){
-	String ans = "[";
-	if(start < end){
-	    for (int i = start; i <= end; i++){
-		ans += data[i] + " , ";
-	    }
+	if(size==0){
+	    throw new NoSuchElementException();
 	}
-	else{
-	    for(int i = start; i < data.length; i++){
-		ans += data[i] + ", ";
-	    }
-	    for(int i = 0; i <= end; i++){
-		ans += data[i] + ", ";
-	    }
-	}
-	ans = ans.substring(0, ans.length() - 2) + "]";
-	return ans;
-    }
-
-    public static void main(String[] args) {
-	MyDeque<String> a = new MyDeque<>(), a1 = new MyDeque<>();
-	ArrayList<String> b = new ArrayList<>();
-
-	int size = Integer.parseInt(args[0]);
-	for(int i = 0; i < size; i++){
-	    int temp = (int)(Math.random() * 1000);
-	    if(temp % 2 == 0){
-		a.addFirst("" + temp);
-		a1.addFirst("" + temp);
-		b.add(0, "" + temp);
-	    }
-	    else{
-		a.addLast("" + temp);
-		a1.addLast("" + temp);
-		b.add("" + temp);
-	    }
-	}
-
-	int index = 0;
-	boolean hasError = false;
-	String errorEvaluation = "Errors found at these indices: ";
-	for (String x : b){
-	    if (!(x.equals(a.getFirst()))){
-		System.out.println("The getFirst() function is incorrect at index " + index);
-		hasError = true;
-	    }
-	    if (!(x.equals(a.removeFirst()))){
-		System.out.println("There is an error at index " + index);
-		errorEvaluation += index + ", ";
-		hasError = true;
-	    }
-	    index++;
-	}
-
-
-	if(hasError){
-	    errorEvaluation = errorEvaluation.substring(0, errorEvaluation.length() - 2);
-	    System.out.println(errorEvaluation);
-	    System.out.println("MyDeque: " + a1);
-	    System.out.println("Actual Deque: " + b);
-	}
-	else{
-	    System.out.println("Your deque is bug-free!");
-	}
+	return data[(end)%cap];
     }
 }
