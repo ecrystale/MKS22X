@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyDeque<E>{
     private E[] data;
     private int size;
@@ -9,7 +10,7 @@ public class MyDeque<E>{
 	data=(E[])new Object[10];
 	size=0;
 	start=0;
-	end=0;
+	end=1;
 	cap=10;
     }
     @SuppressWarnings("unchecked")
@@ -21,8 +22,8 @@ public class MyDeque<E>{
 	cap=initialCapacity;
 	int mid=cap/2;
 	size=0;
-	start=mid;
-	end=mid+1;
+	start=0;
+	end=1;
     }
 
     public int size(){
@@ -37,9 +38,16 @@ public class MyDeque<E>{
 	if(ele==null){
 	    throw new NullPointerException();
 	}
+	if(size==cap){
+	    resize();
+	    //start=(start+cap)%cap;
+	}
+
+	start=(cap+start-1)%cap;
 	data[start]=ele;
-	start-=1;
+	//start--;
 	size++;
+	//start=(cap+start-1)%cap;
     }
     public void addLast(E ele){
 	if(ele==null){
@@ -47,19 +55,29 @@ public class MyDeque<E>{
 	}
 	if(size==cap){
 	    resize();
+	    //end=(end)%cap;
 	}
+	end=(end+1)%cap;
 	data[end]=ele;
-	end+=1;
+	//end++;
 	size++;
     }
     
     @SuppressWarnings("unchecked")
-    public void resize(){
-	cap*=2;
+	public void resize(){
+	int origcap=cap;
+	cap=cap*2+1;
 	E[] copy=(E[])new Object[cap];
 	for(int i=0;i<size;i++){
-	    
+	    copy[i]=data[(start+i)%origcap];
 	}
+	start=0;
+	end=size-1;
+	//end=(end+1)%cap;
+	//start=(start-1)%cap;
+	//end+=1;
+	data=copy;
+	
     }
     
     //The remove methods:
@@ -67,15 +85,23 @@ public class MyDeque<E>{
     //Throws:
     //NoSuchElementException - if this deque is empty
     public E removeFirst(){
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
 	E result=data[start];
 	data[start]=null;
-	start+=1;
+	start=(start+1)%cap;
+	size--;
 	return result;
     }
     public E removeLast(){
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
 	E result=data[end];
 	data[end]=null;
-	end-=1;
+	end=(cap+end-1)%cap;
+	size--;
 	return result;
     }
 
@@ -84,10 +110,15 @@ public class MyDeque<E>{
     //Throws:
     //NoSuchElementException - if this deque is empty
     public E getFirst(){
-	return data[start];
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
+	return data[(start)%cap];
     }
     public E getLast(){
-	return data[end];
+	if(size==0){
+	    throw new NoSuchElementException();
+	}
+	return data[(end)%cap];
     }
-
 }
