@@ -1,16 +1,19 @@
-public class MyHeap{
+public class MyHeap<T extends Comparable<T>>{
     boolean max;
-    String[] data;
+    T[] data;
     int size=0;
+    @SuppressWarnings("unchecked")
     public MyHeap(){// - construct empty max heap
 	max=true;
-	data= new String[10];
+        data = (T[])new Comparable[10];
     }
+    @SuppressWarnings("unchecked")
     public MyHeap(boolean rule){// - true: construct empty max heap, false: construct empty min heap.
 	max=rule;
+	data = (T[])new Comparable[10];
     }
 	// Methods
-    public void add(String s){
+    public void add(T s){
 	if(max==true){
 	    maxadd(s);
 	}
@@ -18,7 +21,7 @@ public class MyHeap{
 	    minadd(s);
 	}
     }
-    public void maxadd(String s){
+    public void maxadd(T s){
 	if(size==data.length){
 	    resize();
 	}
@@ -26,7 +29,7 @@ public class MyHeap{
 	pull(size);
 	size++;
     }
-    public void minadd(String s){
+    public void minadd(T s){
 	if(size==data.length){
 	    resize();
 	}
@@ -52,20 +55,21 @@ public class MyHeap{
 	}
     }
     public void swap(int one, int two){
-	String orig=data[one];
+	T orig=data[one];
 	data[one]=data[two];
 	data[two]=orig;
     }
+    @SuppressWarnings("unchecked")
     public void resize(){
 	int index=data.length*2;
-	String[] copy=new String[index];
+	T[] copy=(T[])new Comparable[index];
 	for(int i=0;i<size;i++){
 	    copy[i]=data[i];
 	}
 	data=copy;
     }
-    public String remove(){
-	String original=data[0];
+    public T remove(){
+	T original=data[0];
 	data[0]=data[size];
 	data[size]=null;
 	size--;
@@ -97,7 +101,7 @@ public class MyHeap{
 	    }
 	}
     }
-    public String peek(){
+    public T peek(){
 	return data[0];
     }
     public int size(){
