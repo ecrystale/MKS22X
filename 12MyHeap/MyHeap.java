@@ -66,8 +66,8 @@ public class MyHeap{
     }
     public String remove(){
 	String original=data[0];
-	data[0]=data[size-1];
-	data[size-1]=null;
+	data[0]=data[size];
+	data[size]=null;
 	size--;
 	push(0);
 	return original;
