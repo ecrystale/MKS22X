@@ -70,8 +70,8 @@ public class MyHeap<T extends Comparable<T>>{
     }
     public T remove(){
 	T original=data[0];
-	data[0]=data[size];
-	data[size]=null;
+	data[0]=data[size-1];
+	data[size-1]=null;
 	size--;
 	push(0);
 	return original;
