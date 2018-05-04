@@ -172,13 +172,6 @@ public class USACO{
 		row++;
 	    }
 	}
-	String ok="";
-	for(int i=0;i<field.length;i++){
-	    for(int j=0;j<field[0].length;j++){
-		ok+=field[i][j]+" ";
-	    }
-	    ok+="\n";
-	}
 	return solvesilver();
     }
 
@@ -260,5 +253,19 @@ public class USACO{
 	    return true;
 	}	
 	return false;
+    }
+
+    
+    public static void main(String[] args)throws FileNotFoundException{
+	System.out.println(silver("ctravel.1.in"));
+	System.out.println(silver("ctravel.2.in"));
+	System.out.println(silver("ctravel.3.in"));
+	System.out.println(silver("ctravel.4.in"));
+	System.out.println(silver("ctravel.5.in"));
+	System.out.println(silver("ctravel.6.in"));
+	System.out.println(silver("ctravel.7.in"));
+	System.out.println(silver("ctravel.8.in"));
+	System.out.println(silver("ctravel.9.in"));
+	System.out.println(silver("ctravel.10.in"));		
     }
 }
