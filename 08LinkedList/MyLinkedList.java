@@ -70,36 +70,36 @@ public class MyLinkedList{
     }
 
      public boolean add(Integer newData){
-	if(newData!=null){
+	 //if(newData!=null){
 	    if(size==0){
 		start=new Node(newData);
 		end=start;
 		size++;
 		return true;
-	    }
-	    if(size==1){
+	    }/**
+	    else if(size==1){
 		// Node prev=end;
 		end=new Node(newData);
 		end.setPrev(start);
 		start.setNext(end);
 		size++;
 		return true;
-	    }
+		}*/
 	    else{
 		//Node prev=end;
 		Node current=new Node(newData);
-		Node prev=getNode(size-1);
+		//Node prev=getNode(size-1);
 		//current.setValue(newData);
 		//current.setNext(end);
-		current.setPrev(prev);
-		prev.setNext(current);
+		current.setPrev(end);
+		end.setNext(current);
 		size++;
 		end=current;
 		return true;
 		
 	    }
-	}
-	return false;
+	    //}
+	    //	return false;
     }
 
    public void add(int index, Integer value){//exceptions!
@@ -118,7 +118,7 @@ public class MyLinkedList{
 		end=NN;
 		size++;
 	    }
-	    if(index==0){
+	    else if(index==0){
 		Node NN=new Node(value);
 		Node work=getNode(index);
 		//NN.setValue(value);

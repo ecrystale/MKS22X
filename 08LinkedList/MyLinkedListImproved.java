@@ -71,13 +71,13 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     public boolean add(T newData){
-	if(newData!=null){
+	//	if(newData!=null){
 	    if(size==0){
 		start=new Node(newData);
 		end=start;
 		size++;
 		return true;
-	    }
+	    }/**
 	    if(size==1){
 		// Node prev=end;
 		end=new Node(newData);
@@ -85,22 +85,22 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		start.setNext(end);
 		size++;
 		return true;
-	    }
+		}*/
 	    else{
 		//Node prev=end;
 		Node current=new Node(newData);
-		Node prev=getNode(size-1);
+		//Node prev=getNode(size-1);
 		//current.setValue(newData);
 		//current.setNext(end);
-		current.setPrev(prev);
-		prev.setNext(current);
+		current.setPrev(end);
+		end.setNext(current);
 		size++;
 		end=current;
 		return true;
 		
 	    }
-	}
-	return false;
+	    //}
+	    //return false;
     }
 
    public void add(int index, T value){//exceptions!
@@ -119,12 +119,12 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		end=NN;
 		size++;
 	    }
-	    if(index==0){
+	    else if(index==0){
 		Node NN=new Node(value);
-		Node work=getNode(index);
+		//Node work=getNode(index);
 		//NN.setValue(value);
-		work.setPrev(NN);
-		NN.setNext(work);
+		start.setPrev(NN);
+		NN.setNext(start);
 		start=NN;
 		size++;
 		//end=end.getNext();
@@ -328,4 +328,5 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         //The size of other is reduced to 0
         //The size of this is now the combined sizes of both original lists
     }
+
 }
