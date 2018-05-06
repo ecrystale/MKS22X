@@ -171,7 +171,15 @@ public class USACO{
 		}
 		row++;
 	    }
+	}/**
+	String ok="";
+	for(int i=0;i<field.length;i++){
+	    for(int j=0;j<field[0].length;j++){
+		ok+=field[i][j]+" ";
+	    }
+	    ok+="\n";
 	}
+	System.out.println(ok);*/
 	return solvesilver();
     }
 
@@ -219,6 +227,16 @@ public class USACO{
 		    }
 		}
 	    }
+	    //String view="";
+	    for(int k=0;k<copy.length;k++){
+		for(int j=0;j<copy[0].length;j++){
+		    copy[k][j]=copy2[k][j];
+		    //view+=copy[k][j]+" ";
+		}
+		//view+="\n";
+	    }
+	    //System.out.println(view);
+
 	    for(int k=0;k<copy2.length;k++){
 		for(int j=0;j<copy2[0].length;j++){
 		    copy2[k][j]=0;
@@ -253,19 +271,5 @@ public class USACO{
 	    return true;
 	}	
 	return false;
-    }
-
-    
-    public static void main(String[] args)throws FileNotFoundException{
-	System.out.println(silver("ctravel.1.in"));
-	System.out.println(silver("ctravel.2.in"));
-	System.out.println(silver("ctravel.3.in"));
-	System.out.println(silver("ctravel.4.in"));
-	System.out.println(silver("ctravel.5.in"));
-	System.out.println(silver("ctravel.6.in"));
-	System.out.println(silver("ctravel.7.in"));
-	System.out.println(silver("ctravel.8.in"));
-	System.out.println(silver("ctravel.9.in"));
-	System.out.println(silver("ctravel.10.in"));		
     }
 }
