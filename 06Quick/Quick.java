@@ -8,11 +8,22 @@ public class Quick{
     }
     
     public static void sortH(int[] ary, int start, int end){
-        if(end>start){
+	if(end>start){
+	    //if(end-1>start){
 	    int[] place=partitionS(ary,start,end);
-	    sortH(ary,start,place[0]);
-	    sortH(ary,place[1],end);
-	    //  end=start;
+	    //if(0<=place[0] && place[1]<ary.length && place[0]<place[1]){
+	    if(place[1]>=place[0]){
+		//System.out.println(place[0]);
+		if(start!=place[0]){
+		    sortH(ary,start,place[0]);
+		   }
+		if(end!=place[1]){
+		    sortH(ary,place[1],end);
+		}
+		// }
+	    }
+	    //end=start;
+	    //}
 	}
     }
     public static int[] partitionS ( int [] data, int start, int end){
@@ -26,19 +37,22 @@ public class Quick{
 	int hi=end;
 	start++;
 	int i=start;
+	int count=0;
 	while(i<end){
-	    if(data[i]==data[lo]){
-		i++;
-		places[0]++;
-	    }
-	    if(data[i]<data[lo]){
+	     if(data[i]==data[lo]){
+		 i++;
+		 places[0]++;
+		 //start++;
+	     }
+	     else if(data[i]<data[lo]){
 		swap(data,i,start);
 		start++;
 		places[0]++;
 		i++;
 	    }
-	    if(data[i]>data[lo]){
+	    else if(data[i]>data[lo]){
 		swap(data,i,end);
+		//i++;
 		end--;
 		places[1]--;
 	    }
@@ -63,6 +77,7 @@ public class Quick{
 	    else{
 		//if(places[0]!=lo){
 		    swap(data,places[0],lo);
+		    //places[0]++;
 		    /**}
 		else{
 		    swap(data,places[1],lo);
@@ -137,7 +152,7 @@ public class Quick{
 	System.out.println(all);
     }
 
-    /**    
+      
     //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -218,6 +233,6 @@ public class Quick{
 	}
 	//toString(start);
     }
-    }*/
+    }
    
 }
