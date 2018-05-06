@@ -41,7 +41,7 @@ public class Quick{
 	while(i<end){
 	     if(data[i]==data[lo]){
 		 i++;
-		 places[0]++;
+		 places[0]++; //random works with this, but small range doesn't- w/o this, small range works but random doesn't
 		 //start++;
 	     }
 	     else if(data[i]<data[lo]){
