@@ -7,4 +7,5 @@ public class Location{
 	y=_y;
 	previous=prev;
     }
+
 }

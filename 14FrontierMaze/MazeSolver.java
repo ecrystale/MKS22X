@@ -15,6 +15,12 @@ public class MazeSolver{
   //0: BFS
   //1: DFS
   public boolean solve(int mode){
+      if(mode==0){
+	  FrontierStack x= new FrontierStack();
+      }
+      if(mode==1){
+
+      }
     //initialize your frontier
     //while there is stuff in the frontier:
     //  get the next location
