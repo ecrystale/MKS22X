@@ -21,13 +21,13 @@ public class FrontierQueue implements Frontier{
     }
     public Location next(){
 	if(hasNext()){
-	    count++;
-	    return locate[count];
+	    index--;
+	    return locate[index];
 	}
 	return null;
     }
     public boolean hasNext(){
-	if(locate[count+1]!=null){
+	if(locate[index-1]!=null){
 	    return true;
 	}
 	return false;
