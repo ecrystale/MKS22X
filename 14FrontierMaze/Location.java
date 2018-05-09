@@ -8,4 +8,18 @@ public class Location{
 	previous=prev;
     }
 
+    public int getx(){
+	return x;
+    }
+    public int gety(){
+	return y;
+    }
+
+    public Location prev(){
+	return previous;
+    }
+
+    public int distanceToLoc(Location start){
+	return (int) Math.sqrt(Math.pow(x-start.getx(),2)+Math.pow(y-start.gety(),2));
+    }
 }

@@ -3,7 +3,7 @@ public class MazeSolver{
   private Frontier frontier;
 
   public MazeSolver(String mazeText){
-    
+      maze=new Maze(mazeText);
   }
 
   //Default to BFS
@@ -16,10 +16,15 @@ public class MazeSolver{
   //1: DFS
   public boolean solve(int mode){
       if(mode==0){
-	  FrontierStack x= new FrontierStack();
+	  frontier= new FrontierStack();
+	  frontier.add(maze.getStart());
+	  //while(frontier
+	  return true;
       }
       if(mode==1){
-
+	  frontier= new FrontierQueue();
+	  frontier.add(maze.getStart());
+	  return true;
       }
     //initialize your frontier
     //while there is stuff in the frontier:
