@@ -20,13 +20,15 @@ public class Maze{
       int index=0;
       for(int i=L.getx()-1;i<L.getx()+1;i++){
 	  if(0<=i && i<maze.length){
-	      for(int j=L.gety()-1;i<L.gety()+1;i++){
+	      for(int j=L.gety()-1;j<L.gety()+1;j++){
 		  if(0<=j && j<maze[0].length){
 		      Location ok=new Location(i,j,L);
-		      if(L.distanceToLoc(ok)==1){
-			  copy[index]=ok;
-			  index++;
-		      }    
+		      if(maze[i][j]!='#'){			  
+			  if(L.distanceToLoc(ok)==1){
+			      copy[index]=ok;
+			      index++;
+			  }
+		      }
 		  }
 	      }
 	  }

@@ -37,17 +37,19 @@ public class MazeSolver{
 	  frontier.add(L);
 	  Location[] neighbors=maze.getNeighbors(L);
 	  for(int i=0;i<neighbors.length;i++){
-	      if(neighbors[i]==maze.getEnd()){
+	      if(neighbors[i]==(maze.getEnd())){
 		  return true;
 	      }
 	      frontier.add(neighbors[i]);
 	  }
 	  while(frontier.hasNext()){
-	      return Frontiersolver(frontier.next());
+	      if(Frontiersolver(frontier.next())){
+		  return true;
+	      }
 	  }
+	  //frontier.remove();
 	  return false;
     }
-
 
     public String toString(){
 	return maze.toString();

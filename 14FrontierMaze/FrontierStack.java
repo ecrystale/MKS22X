@@ -2,6 +2,7 @@ public class FrontierStack implements Frontier{
     private Location[] locate=new Location[10];
     private int index=0;
     private int count=0;
+    private int first=0;
     private int cap=10;
     public void add(Location n){
 	if(cap==count){
@@ -14,8 +15,10 @@ public class FrontierStack implements Frontier{
     public void resize(){
 	Location[] copy=new Location[cap*2+1];
 	for(int i=0;i<cap;i++){
-	    copy[i]=locate[i];
+	    copy[i]=locate[first];
+	    first++;
 	}
+	first=0;
 	cap=cap*2+1;
 	locate=copy;
     }
@@ -27,9 +30,18 @@ public class FrontierStack implements Frontier{
 	return null;
     }
     public boolean hasNext(){
+	if(count+1>=cap){
+	    return false;
+	}
 	if(locate[count+1]!=null){
 	    return true;
 	}
 	return false;
+    }
+    public void remove(){
+	locate[first]=null;
+	count--;
+	first++;
+	cap--;
     }
 }
