@@ -110,4 +110,13 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 	System.out.println(all);
     }
+
+    @SuppressWarnings("unchecked")
+    public MyHeap Heapify(T[] ary){
+	MyHeap x=new MyHeap();
+	for(int i=0;i<ary.length;i++){
+	    x.add(ary[i]);
+	}
+	return x;
+    }
 }
