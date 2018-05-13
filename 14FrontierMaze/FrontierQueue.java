@@ -1,4 +1,16 @@
+import java.util.*;
 public class FrontierQueue implements Frontier{
+    private LinkedList<Location> list=new LinkedList<>();
+    public Location next(){
+	return list.remove();
+    }
+    public void add(Location x){
+	list.add(x);
+    }
+    public boolean hasNext(){
+	return list.size()>0;
+    }
+    /**
     private Location[] locate=new Location[10];
     private int index=9;
     private int count=0;
@@ -44,5 +56,5 @@ public class FrontierQueue implements Frontier{
 	count--;
 	first--;
 	cap--;
-    }
+	}*/
 }

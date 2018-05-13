@@ -54,4 +54,9 @@ public class MazeSolver{
     public String toString(){
 	return maze.toString();
     }
+    /**
+    public static void main(String[] args){
+	MazeSolver x=new MazeSolver("maze1");
+	return x.solve();
+	}*/
 }
