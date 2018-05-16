@@ -11,11 +11,13 @@ public class RunningMedian{
     public void add(double value){
 	if(minsize==0){
 	    min[minsize]=value;
+	    minsize++;
 	}
-	if(maxsize==0){
+	else if(maxsize==0){
 	    max[maxsize]=value;
+	    maxsize++;
 	}
-	if(min[0]<=value){
+	else if(min[0]>=value){
 	    if(minsize==min.length){
 		resize(false);
 	    }
@@ -23,7 +25,7 @@ public class RunningMedian{
 	    pull(minsize,false);
 	    minsize++;
 	}
-	if(max[0]>=value){
+	else if(max[0]<=value){
 	    if(maxsize==max.length){
 		resize(true);
 	    }
@@ -40,7 +42,7 @@ public class RunningMedian{
 	}
 	while(maxsize-minsize>1){
 	    min[minsize]=max[maxsize-1];
-	    pull(minsize,true);
+	    pull(minsize,false);
 	    minsize++;
 	    max[maxsize-1]=Double.NaN;
 	    maxsize--;
@@ -106,16 +108,29 @@ public class RunningMedian{
 	    throw new NoSuchElementException();
 	}
 	if(minsize>maxsize){
-	    return min[0];
+	    return min[minsize-1];
 	}
 	if(maxsize>minsize){
-	    return max[0];
+	    return max[maxsize-1];
 	}
 	else{
-	    return (min[0]+max[0])/2;
+	    return (min[minsize-1]+max[maxsize-1])/2;
 	}
     }
     public int size(){
 	return minsize+maxsize;
+    }
+
+    public void toStringify(){
+	String ok="max:[";
+	for(int i=0;i<maxsize;i++){
+	    ok+=max[i]+" ";
+	}
+	ok+="]\nmin:[";
+	for(int i=0;i<minsize;i++){
+	    ok+=min[i]+" ";
+	}
+	ok+="]";
+	System.out.println(ok);
     }
 }
