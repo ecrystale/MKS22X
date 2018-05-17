@@ -28,40 +28,35 @@ public class Quick{
     }
     public static int[] partitionS ( int [] data, int start, int end){
 	int[] places=new int[2];
-	places[0]=start;
-	places[1]=end;
 	Random rand = new Random();
 	int  pivot = rand.nextInt(end-start+1)+start;
 	swap(data,start,pivot);
-	int lo=start;
-	int hi=end;
-	start++;
-	int i=start;
-	int count=0;
-	while(i<end){
-	     if(data[i]==data[lo]){
+	//start++;
+	int i=start+1;
+	while(i<=end){
+	     if(data[i]==data[start]){
 		 i++;
-		 places[0]++; //random works with this, but small range doesn't- w/o this, small range works but random doesn't
+		 //places[0]++; //random works with this, but small range doesn't- w/o this, small range works but random doesn't
 		 //start++;
 	     }
-	     else if(data[i]<data[lo]){
+	     else if(data[i]<data[start]){
 		swap(data,i,start);
 		start++;
-		places[0]++;
+		//places[0]++;
 		i++;
 	    }
-	    else if(data[i]>data[lo]){
+	    else{
 		swap(data,i,end);
 		//i++;
 		end--;
-		places[1]--;
+		//places[1]--;
 	    }
-	}
+	}/**
 	if(data[end]>data[lo]){
 	    /**if(data[end-1]!=data[lo]){
 	       swap(data,end-1,lo);
 	       places[1]--;
-	       }*/
+	       }
 	    if(places[0]!=lo){
 		swap(data,places[0],lo);
 	    }
@@ -81,10 +76,11 @@ public class Quick{
 		    /**}
 		else{
 		    swap(data,places[1],lo);
-		    }*/
+		    }
 	    }
-	}
-
+	}*/
+	places[0]=start;
+	places[1]=i;
 	return places;
     }
     public static int quickselect(int []data, int k){
@@ -152,7 +148,7 @@ public class Quick{
 	System.out.println(all);
     }
 
-      
+    /**   
     //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -233,6 +229,6 @@ public class Quick{
 	}
 	//toString(start);
     }
-    }
+    }*/
    
 }

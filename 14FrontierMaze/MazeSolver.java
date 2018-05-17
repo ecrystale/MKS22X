@@ -40,7 +40,9 @@ public class MazeSolver{
 	      if(neighbors[i]==(maze.getEnd())){
 		  return true;
 	      }
-	      frontier.add(neighbors[i]);
+	      if(neighbors[i]!=null){
+		  frontier.add(neighbors[i]);
+	      }
 	  }
 	  while(frontier.hasNext()){
 	      if(Frontiersolver(frontier.next())){

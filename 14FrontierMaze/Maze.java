@@ -22,11 +22,13 @@ public class Maze{
 	  if(0<=i && i<maze.length){
 	      for(int j=L.gety()-1;j<L.gety()+1;j++){
 		  if(0<=j && j<maze[0].length){
-		      Location ok=new Location(i,j,L);
-		      if(maze[i][j]!='#'){			  
-			  if(L.distanceToLoc(ok)==1){
-			      copy[index]=ok;
-			      index++;
+		      if(!(L.getx()==i && L.gety()==j)){
+			  Location ok=new Location(i,j,L);
+			  if(maze[i][j]!='#'){			  
+			      if(L.distanceToLoc(ok)==1){
+				  copy[index]=ok;
+				  index++;
+			      }
 			  }
 		      }
 		  }
