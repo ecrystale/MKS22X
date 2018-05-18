@@ -17,7 +17,7 @@ public class RunningMedian{
 	    max[maxsize]=value;
 	    maxsize++;
 	}
-	else if(min[0]>=value){
+	else if(min[0]<=value){
 	    if(minsize==min.length){
 		resize(false);
 	    }
@@ -25,7 +25,7 @@ public class RunningMedian{
 	    pull(minsize,false);
 	    minsize++;
 	}
-	else if(max[0]<=value){
+	else if(max[0]>=value){
 	    if(maxsize==max.length){
 		resize(true);
 	    }
@@ -34,17 +34,21 @@ public class RunningMedian{
 	    maxsize++;
 	}
 	while(minsize-maxsize>1){
-	    max[maxsize]=min[minsize-1];
+	    max[maxsize]=min[0];
 	    pull(maxsize,true);
 	    maxsize++;
-	    min[minsize-1]=Double.NaN;
+	    min[0]=min[minsize-1];
+	    push(0,false);
+	    min[minsize-1]=0;
 	    minsize--;
 	}
 	while(maxsize-minsize>1){
-	    min[minsize]=max[maxsize-1];
+	    min[minsize]=max[0];
 	    pull(minsize,false);
 	    minsize++;
-	    max[maxsize-1]=Double.NaN;
+	    max[0]=max[maxsize-1];
+	    push(0,true);
+	    max[maxsize-1]=0;
 	    maxsize--;
 	}
     }
@@ -67,7 +71,38 @@ public class RunningMedian{
 	}
     }
 
-    
+    public void push(int index, boolean maxi){
+	int place=2*index+1;
+	boolean switched=false;
+	if(maxi==true){
+	    if(place<maxsize){
+		if(max[place]>max[index]){
+		    swap(place,index,true);
+		    push(place,true);
+		}
+		if(place+1<maxsize){
+		    if(max[place+1]>max[index]){
+			swap(place+1,index,true);
+			push(place+1,true);
+		    }
+		}
+	    }
+	}
+	if(maxi==false){
+	    if(place<minsize){
+		if(min[place]<(min[index])){
+		    swap(place,index,false);
+		    push(place,false);
+		}
+		if(place+1<minsize){
+		    if(min[place+1]<min[index]){
+			swap(place+1,index,false);
+			push(place+1,false);
+		    }
+		}
+	    }
+	}  
+    }
     public void pull(int index, boolean maxi){
 	int place=(index-1)/2;
 	if(place>=0){
@@ -108,13 +143,13 @@ public class RunningMedian{
 	    throw new NoSuchElementException();
 	}
 	if(minsize>maxsize){
-	    return min[minsize-1];
+	    return min[0];
 	}
 	if(maxsize>minsize){
-	    return max[maxsize-1];
+	    return max[0];
 	}
 	else{
-	    return (min[minsize-1]+max[maxsize-1])/2;
+	    return (min[0]+max[0])/2;
 	}
     }
     public int size(){
