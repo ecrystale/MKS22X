@@ -1,8 +1,9 @@
+import java.util.*;
 public class FrontierPriorityQueue implements Frontier{
     //min heap of Locations.
     //@SuppressWarnings("unchecked")
-    private MyHeap<Location> data=new MyHeap<>(true);;
-    @SuppressWarnings("unchecked")
+    private LinkedList<Location> data=new LinkedList<>();
+	@SuppressWarnings("unchecked")
     public FrontierPriorityQueue(){
 	//data= new MyHeap<>(true);
     }

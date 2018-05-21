@@ -1,6 +1,6 @@
 import java.util.*;
 public class FrontierStack implements Frontier{
-    private LinkedList<Location> list=new LinkedList<>();
+    private Stack<Location> list=new Stack<Location>();
     public Location next(){
 	return list.pop();
     }
@@ -8,9 +8,8 @@ public class FrontierStack implements Frontier{
 	list.push(x);
     }
     public boolean hasNext(){
-	return list.size()>0;
-    }
-    /**
+	return !(list.isEmpty());
+    }/**
     private Location[] locate=new Location[10];
     private int index=0;
     private int count=0;
@@ -55,6 +54,6 @@ public class FrontierStack implements Frontier{
 	count--;
 	first++;
 	cap--;
-    }
-    */
+	}*/
+    
 }

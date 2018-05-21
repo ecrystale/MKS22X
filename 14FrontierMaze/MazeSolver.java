@@ -17,10 +17,15 @@ public class MazeSolver{
   public boolean solve(int mode){
       if(mode==0){
 	  frontier= new FrontierStack();
+	  frontier.add(maze.getStart());
 	  return Frontiersolver(maze.getStart());
       }
       if(mode==1){
 	  frontier= new FrontierQueue();
+	  return Frontiersolver(maze.getStart());
+      }
+      if(mode==2){
+	  frontier= new FrontierPriorityQueue();
 	  return Frontiersolver(maze.getStart());
       }
     //initialize your frontier
@@ -34,7 +39,7 @@ public class MazeSolver{
   }
 
     public boolean Frontiersolver(Location L){
-	  frontier.add(L);
+	maze.set(L.getx(),L.gety(),'@');
 	  Location[] neighbors=maze.getNeighbors(L);
 	  for(int i=0;i<neighbors.length;i++){
 	      if(neighbors[i]==(maze.getEnd())){

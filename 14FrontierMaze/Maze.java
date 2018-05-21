@@ -23,8 +23,8 @@ public class Maze{
 	      for(int j=L.gety()-1;j<L.gety()+1;j++){
 		  if(0<=j && j<maze[0].length){
 		      if(!(L.getx()==i && L.gety()==j)){
-			  Location ok=new Location(i,j,L);
-			  if(maze[i][j]!='#'){			  
+			  if(maze[i][j]!='#' || maze[i][j]!='@'){
+			  Location ok=new Location(i,j,L);			
 			      if(L.distanceToLoc(ok)==1){
 				  copy[index]=ok;
 				  index++;

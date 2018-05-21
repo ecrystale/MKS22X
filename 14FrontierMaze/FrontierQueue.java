@@ -8,7 +8,7 @@ public class FrontierQueue implements Frontier{
 	list.add(x);
     }
     public boolean hasNext(){
-	return list.size()>0;
+	return !(list.isEmpty());//list.size()>0;
     }
     /**
     private Location[] locate=new Location[10];
