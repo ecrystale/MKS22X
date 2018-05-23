@@ -18,13 +18,14 @@ public class Maze{
   public Location[] getNeighbors(Location L){
       Location[] copy=new Location[8];
       int index=0;
-      for(int i=L.getx()-1;i<L.getx()+1;i++){
+      System.out.println(L.getx()+" "+L.gety());
+      for(int i=L.getx()-1;i<L.getx()+2;i++){
 	  if(0<=i && i<maze.length){
-	      for(int j=L.gety()-1;j<L.gety()+1;j++){
+	      for(int j=L.gety()-1;j<L.gety()+2;j++){
 		  if(0<=j && j<maze[0].length){
 		      if(!(L.getx()==i && L.gety()==j)){
-			  if(maze[i][j]!='#' || maze[i][j]!='@'){
-			  Location ok=new Location(i,j,L);			
+			  if(maze[i][j]!='#' && maze[i][j]!='@'){
+			      Location ok=new Location(i,j,L);			
 			      if(L.distanceToLoc(ok)==1){
 				  copy[index]=ok;
 				  index++;
@@ -33,6 +34,15 @@ public class Maze{
 		      }
 		  }
 	      }
+	  }
+      }
+      String all="";
+      for(int i=0;i<8;i++){
+	  if(copy[i]!=null){
+	      all+="("+copy[i].getx()+" "+copy[i].getx()+")"+(copy[i].prev()).getx()+" "+(copy[i].prev()).gety()+"  ";
+	  }
+	  if(i==7){
+	      System.out.println(all);
 	  }
       }
       return copy;

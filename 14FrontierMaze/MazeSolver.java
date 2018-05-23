@@ -17,6 +17,8 @@ public class MazeSolver{
   public boolean solve(int mode){
       if(mode==0){
 	  frontier= new FrontierStack();
+	  System.out.println((maze.getStart()).getx()+" "+(maze.getStart()).gety());
+	  	  System.out.println((maze.getEnd()).getx()+" "+(maze.getEnd()).gety());
 	  frontier.add(maze.getStart());
 	  return Frontiersolver(maze.getStart());
       }
@@ -40,26 +42,27 @@ public class MazeSolver{
 
     public boolean Frontiersolver(Location L){
 	maze.set(L.getx(),L.gety(),'@');
-	  Location[] neighbors=maze.getNeighbors(L);
-	  for(int i=0;i<neighbors.length;i++){
-	      if(neighbors[i]==(maze.getEnd())){
-		  return true;
-	      }
-	      if(neighbors[i]!=null){
-		  frontier.add(neighbors[i]);
-	      }
-	  }
-	  while(frontier.hasNext()){
-	      if(Frontiersolver(frontier.next())){
-		  return true;
-	      }
-	  }
-	  //frontier.remove();
-	  return false;
+	Location[] neighbors=maze.getNeighbors(L);
+	for(int i=0;i<neighbors.length;i++){
+	    if(neighbors[i]==(maze.getEnd())){
+		return true;
+	    }
+	    if(neighbors[i]!=null){
+		frontier.add(neighbors[i]);
+	    }
+	}
+	while(frontier.hasNext()){
+	    if(Frontiersolver(frontier.next())){
+		return true;
+	    }
+	}
+	//frontier.remove();
+	//maze.set(L.getx(),L.gety(),'_');
+	return false;
     }
-
+    
     public String toString(){
 	return maze.toString();
     }
-
+    
 }
