@@ -44,10 +44,10 @@ public class MazeSolver{
 	maze.set(L.getx(),L.gety(),'@');
 	Location[] neighbors=maze.getNeighbors(L);
 	for(int i=0;i<neighbors.length;i++){
-	    if(neighbors[i]==(maze.getEnd())){
-		return true;
-	    }
 	    if(neighbors[i]!=null){
+		if(neighbors[i].getx()==(maze.getEnd()).getx() && neighbors[i].gety()==(maze.getEnd()).gety()){
+		    return true;
+		}
 		frontier.add(neighbors[i]);
 	    }
 	}
@@ -57,7 +57,7 @@ public class MazeSolver{
 	    }
 	}
 	//frontier.remove();
-	//maze.set(L.getx(),L.gety(),'_');
+	maze.set(L.getx(),L.gety(),'_');
 	return false;
     }
     
