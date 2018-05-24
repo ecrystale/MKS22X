@@ -46,18 +46,21 @@ public class MazeSolver{
 	for(int i=0;i<neighbors.length;i++){
 	    if(neighbors[i]!=null){
 		if(neighbors[i].getx()==(maze.getEnd()).getx() && neighbors[i].gety()==(maze.getEnd()).gety()){
+		    System.out.println(maze.toString());
 		    return true;
 		}
 		frontier.add(neighbors[i]);
 	    }
 	}
 	while(frontier.hasNext()){
-	    if(Frontiersolver(frontier.next())){
-		return true;
+	    Location x=frontier.next();
+	    if(maze.get(x.getx(),x.gety())!='@'){
+		if(Frontiersolver(frontier.next())){
+		    return true;
+		}
 	    }
 	}
 	//frontier.remove();
-	maze.set(L.getx(),L.gety(),'_');
 	return false;
     }
     
