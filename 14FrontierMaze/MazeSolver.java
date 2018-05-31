@@ -1,6 +1,7 @@
 public class MazeSolver{
   private Maze maze;
   private Frontier frontier;
+    private boolean Astar;
 
   public MazeSolver(String mazeText){
       maze=new Maze(mazeText);
@@ -20,14 +21,22 @@ public class MazeSolver{
 	  System.out.println((maze.getStart()).getx()+" "+(maze.getStart()).gety());
 	  	  System.out.println((maze.getEnd()).getx()+" "+(maze.getEnd()).gety());
 	  frontier.add(maze.getStart());
+	  maze.setAStar(false);
 	  return Frontiersolver(maze.getStart());
       }
       if(mode==1){
 	  frontier= new FrontierQueue();
+	  maze.setAStar(false);
 	  return Frontiersolver(maze.getStart());
       }
       if(mode==2){
 	  frontier= new FrontierPriorityQueue();
+	  maze.setAStar(false);
+	  return Frontiersolver(maze.getStart());
+      }
+      if(mode==3){
+	  frontier= new AStar();
+	  maze.setAStar(true);
 	  return Frontiersolver(maze.getStart());
       }
     //initialize your frontier
@@ -39,6 +48,10 @@ public class MazeSolver{
     //when there are no more values in the frontier return false
     return false;
   }
+    public boolean setAStar(){
+	//Astar=true;
+	return solve(3);
+    }
 
     public boolean Frontiersolver(Location L){
 	maze.set(L.getx(),L.gety(),'@');

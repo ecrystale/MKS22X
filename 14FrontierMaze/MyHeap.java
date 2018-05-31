@@ -1,16 +1,18 @@
 public class MyHeap<T extends Comparable<T>>{
-    private boolean max; //min**
+    private boolean max,Astar; //min**
     private T[] data;
     private int size=0;
     @SuppressWarnings("unchecked")
     public MyHeap(){// - construct empty max heap
 	max=false;
         data = (T[])new Comparable[10];
+	Astar=false;
     }
     @SuppressWarnings("unchecked")
     public MyHeap(boolean rule){// - true: construct empty max heap, false: construct empty min heap.
 	max=!(rule);
 	data = (T[])new Comparable[10];
+	Astar=false;
     }
 	// Methods
     public void add(T s){
@@ -61,6 +63,9 @@ public class MyHeap<T extends Comparable<T>>{
 	size--;
 	push(0);
 	return original;
+    }
+    public void setAstar(boolean val){
+	Astar=val;
     }
     public void push(int index){
 	int place=2*index+1;
