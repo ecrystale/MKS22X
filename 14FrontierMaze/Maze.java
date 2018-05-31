@@ -25,7 +25,7 @@ public class Maze{
 		  if(0<=j && j<maze[0].length){
 		      if(!(L.getx()==i && L.gety()==j)){
 			  if(maze[i][j]!='#' && maze[i][j]!='@'){
-			      Location ok=new Location(i,j,L);			
+			      Location ok=new Location(i,j,L,start);		
 			      if(L.distanceToLoc(ok)==1){
 				  copy[index]=ok;
 				  index++;

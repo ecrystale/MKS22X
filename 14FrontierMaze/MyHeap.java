@@ -1,15 +1,15 @@
 public class MyHeap<T extends Comparable<T>>{
-    private boolean max;
+    private boolean max; //min**
     private T[] data;
     private int size=0;
     @SuppressWarnings("unchecked")
     public MyHeap(){// - construct empty max heap
-	max=true;
+	max=false;
         data = (T[])new Comparable[10];
     }
     @SuppressWarnings("unchecked")
     public MyHeap(boolean rule){// - true: construct empty max heap, false: construct empty min heap.
-	max=rule;
+	max=!(rule);
 	data = (T[])new Comparable[10];
     }
 	// Methods
@@ -72,9 +72,11 @@ public class MyHeap<T extends Comparable<T>>{
 		    switched=true;
 		    //push(place);
 		}
-		if(data[place+1].compareTo(data[index])<0){
-		    swap(place+1,index);
-		    push(place+1);
+		if(data[place+1]!=null){
+		    if(data[place+1].compareTo(data[index])<0){
+			swap(place+1,index);
+			push(place+1);
+		    }
 		}
 		if(switched==true){
 		    push(place);
@@ -86,9 +88,11 @@ public class MyHeap<T extends Comparable<T>>{
 		    switched=true;
 		    //push(place);
 		}
-		if(data[place+1].compareTo(data[index])<0){
-		    swap(place+1,index);
-		    push(place+1);
+		if(data[place+1]!=null){
+		    if(data[place+1].compareTo(data[index])<0){
+			swap(place+1,index);
+			push(place+1);
+		    }
 		}
 		if(switched==true){
 		    push(place);

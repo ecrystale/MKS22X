@@ -1,12 +1,17 @@
-public class Location{
+public class Location implements Comparable<Location>{
     private int x,y;
-    private Location previous;
+    private Location previous, start;
     private int dist;
-
     public Location(int _x, int _y, Location prev){
 	x=_x;
 	y=_y;
 	previous=prev;
+    }
+    public Location(int _x, int _y, Location prev, Location star){
+	x=_x;
+	y=_y;
+	previous=prev;
+	start=star;
     }
 
     public int getx(){
@@ -28,14 +33,14 @@ public class Location{
 	    return -1;
 	}
 	return 0;
-	}*//**
-    public int distToStart(){
-	return maze.start;
-    }
-    public void setdist(int tostart){
-	dist=tostart;
 	}*/
-    public int distanceToLoc(Location start){
-	return (int) Math.sqrt(Math.pow(x-start.getx(),2)+Math.pow(y-start.gety(),2));
+    public int distToStart(){
+	return distanceToLoc(start);
+    }
+    public int compareTo(Location other){
+	return distToStart()-other.distToStart();
+    }
+    public int distanceToLoc(Location other){
+	return (int) Math.sqrt(Math.pow(x-other.getx(),2)+Math.pow(y-other.gety(),2));
     }
 }
